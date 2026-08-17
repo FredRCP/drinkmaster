@@ -191,7 +191,7 @@ export function IngredientSelector({
       {Object.keys(grouped).length === 0 && (
         <div style={{ textAlign: 'center', padding: '40px 20px', color: '#808080' }}>
           <p style={{ fontSize: '2rem', marginBottom: '8px' }}>🔍</p>
-          <p>Nenhum ingrediente encontrado para "{search}"</p>
+          <p>Nenhum ingrediente encontrado para &quot;{search}&quot;</p>
         </div>
       )}
     </div>

@@ -1,6 +1,6 @@
 {
-  "name": "BarIQ - Cocktail Discovery",
-  "short_name": "BarIQ",
+  "name": "DrinkMaster - Cocktail Discovery",
+  "short_name": "DrinkMaster",
   "description": "Professional Cocktail Discovery PWA",
   "start_url": "/",
   "scope": "/",

@@ -76,7 +76,7 @@ export function SplashScreen({ onFinish }: SplashScreenProps) {
           margin: 0,
           fontFamily: '-apple-system, BlinkMacSystemFont, sans-serif',
         }}>
-          Bar<span style={{ color: '#D4AF37' }}>IQ</span>
+          Drink<span style={{ color: '#D4AF37' }}>Master</span>
         </h1>
       </div>
 

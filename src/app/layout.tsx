@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from 'next'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'BarIQ',
+  title: 'DrinkMaster',
   description: 'Descubra drinks com os ingredientes que você tem',
   manifest: '/manifest.json',
 }

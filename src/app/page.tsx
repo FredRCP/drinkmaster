@@ -65,7 +65,7 @@ export default function Home() {
               <path d="M20 2L4 2L6 9C6 10.1 7.8 11 12 11C16.2 11 18 10.1 18 9L20 2Z"/>
             </svg>
             <span style={{ color: 'var(--text-primary)', fontWeight: 800, fontSize: '1.1rem', letterSpacing: '-0.02em' }}>
-              Bar<span style={{ color: 'var(--gold)' }}>IQ</span>
+              Drink<span style={{ color: 'var(--gold)' }}>Master</span>
             </span>
           </div>
 

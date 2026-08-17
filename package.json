@@ -1,8 +1,8 @@
 {
-  "name": "barilq",
+  "name": "drinkmaster",
   "version": "0.1.0",
   "private": true,
-  "description": "BarIQ - Professional Cocktail Discovery PWA",
+  "description": "DrinkMaster - Professional Cocktail Discovery PWA",
   "scripts": {
     "dev": "next dev",
     "build": "next build",

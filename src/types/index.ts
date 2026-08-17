@@ -182,15 +182,10 @@ const DRINK_IMAGE_FILES: Record<string, string> = {
   'Batida do Mário':          'batida-mario.jpg',
   'Chi-Chi':                  'chi-chi.jpg',
   'Godmother':                'godmother.jpg',
-  'Grasshopper':              'grasshopper.jpg',
-  'Long Island Iced Tea':     'long-island-iced-tea.jpg',
-  'Mai Tai':                  'mai-tai.jpg',
   'Pain Killer':              'pain-killer.jpg',
-  'Piña Colada':              'pina-colada.jpg',
   'Prairie Fire':             'prairie-fire.jpg',
   'Purple Passion':           'purple-passion.jpg',
   'Scooter':                  'scooter.jpg',
-  'Whisky Sour':              'whisky-sour.jpg',
 }
 
 function getFallbackByName(drink: Drink): string {

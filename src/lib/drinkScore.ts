@@ -1,4 +1,4 @@
-import { Drink, DrinkMatch, Ingredient } from '@/types'
+import { Drink, DrinkMatch } from '@/types'
 
 export function calculateDrinkScore(drink: Drink, selectedIds: string[]): DrinkMatch {
   const selectedSet = new Set(selectedIds)

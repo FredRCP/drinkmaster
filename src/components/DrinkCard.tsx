@@ -1,6 +1,6 @@
 'use client'
 
-import { Heart, Clock, ChevronRight } from 'lucide-react'
+import { Heart, Clock } from 'lucide-react'
 import { Drink, getDrinkImage, DIFFICULTY_LABELS, DIFFICULTY_COLORS } from '@/types'
 import { getBaseAlcoholBadge } from '@/features/catalog/CatalogScreen'
 

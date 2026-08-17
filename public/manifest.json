@@ -1,0 +1,26 @@
+{
+  "name": "BarIQ - Cocktail Discovery",
+  "short_name": "BarIQ",
+  "description": "Professional Cocktail Discovery PWA",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "theme_color": "#0F0F10",
+  "background_color": "#0F0F10",
+  "categories": ["lifestyle", "food", "productivity"],
+  "icons": [
+    {
+      "src": "/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

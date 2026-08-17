@@ -1,0 +1,36 @@
+🍸 BarIQ - INSTRUÇÕES DE INSTALAÇÃO
+
+PASSO 1: EXTRAIR ZIP
+└─ Descompacte o arquivo barilq.zip
+└─ Navegue até a pasta: cd barilq
+
+PASSO 2: INSTALAR NODE MODULES
+└─ npm install
+└─ (vai instalar todas as 45+ dependências)
+
+PASSO 3: CONFIGURAR SUPABASE
+└─ Copie o arquivo .env.example para .env.local
+  └─ cp .env.example .env.local
+└─ Abra .env.local e adicione suas credenciais do Supabase:
+  ├─ NEXT_PUBLIC_SUPABASE_URL
+  ├─ NEXT_PUBLIC_SUPABASE_ANON_KEY
+  └─ SUPABASE_SERVICE_ROLE_KEY
+
+PASSO 4: INICIAR O PROJETO
+└─ npm run dev
+└─ Abra: http://localhost:3000
+
+✅ PRONTO! Você vai ver a tela do BarIQ com 🍸
+
+DOCUMENTAÇÃO IMPORTANTE:
+├─ README.md              → Visão geral do projeto
+├─ SETUP.md               → Guia detalhado de setup
+├─ QUICK_START.md         → Referência rápida
+├─ SPRINT_CHECKLIST.md    → Roadmap de sprints
+└─ CODING_STANDARDS.md    → Padrões de desenvolvimento
+
+DÚVIDAS?
+└─ Leia QUICK_START.md para referência rápida
+└─ Leia CODING_STANDARDS.md para padrões de código
+
+Versão: 0.1.0 (Sprint 1 - Foundation Complete)

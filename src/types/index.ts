@@ -49,7 +49,12 @@ export interface Drink {
   glass_type_id: string | null
   technique_id: string | null
   drink_ingredients: DrinkIngredient[]
+  glass_type?: GlassType
+  technique?: Technique
   category?: Category
+  base_alcohol?: string
+  flavor_profile?: string[]
+  tags?: string[]
 }
 
 export interface DrinkMatch {
@@ -91,6 +96,26 @@ export const DIFFICULTY_COLORS: Record<string, string> = {
   easy:   '#3FB950',
   medium: '#D29922',
   hard:   '#F85149',
+}
+
+export const TECHNIQUE_EQUIPMENT: Record<string, string[]> = {
+  'Shaker':  ['🍹 Coqueteleira', '🧊 Gelo', '🔍 Coador', '🥄 Colher de bar'],
+  'Mexer':   ['🥃 Copo mixing (ou jarra)', '🥄 Colher de bar longa', '🧊 Gelo', '🔍 Coador'],
+  'Montar':  ['🧊 Gelo', '🥄 Colher de bar'],
+  'Bater':   ['🔨 Muddler (socador)', '🥄 Colher de bar', '🧊 Gelo'],
+  'Blend':   ['🌀 Liquidificador', '🧊 Gelo'],
+  'Flutuar': ['🥄 Colher de bar', '🧊 Gelo'],
+  'Camadas': ['🥄 Colher de bar'],
+}
+
+export const TECHNIQUE_TIP: Record<string, string> = {
+  'Shaker':  'Coloque os ingredientes e gelo na coqueteleira, feche bem e agite com força por 10-15 segundos até a coqueteleira ficar gelada por fora.',
+  'Mexer':   'Use a colher longa para mexer suavemente em movimentos circulares. Não agite — o objetivo é resfriar sem aeração.',
+  'Montar':  'Adicione os ingredientes diretamente no copo, na ordem indicada. Sem coqueteleira necessária.',
+  'Bater':   'Use o muddler para macerar (amassar levemente) os ingredientes sólidos no fundo do copo antes de adicionar os líquidos.',
+  'Blend':   'Bata todos os ingredientes com gelo no liquidificador até obter textura cremosa e homogênea.',
+  'Flutuar': 'Despeje o ingrediente lentamente sobre o dorso de uma colher para que flutue sobre os outros sem misturar.',
+  'Camadas': 'Adicione cada ingrediente devagar pelo dorso de uma colher, do mais denso para o mais leve.',
 }
 
 const DRINK_IMAGE_FILES: Record<string, string> = {
@@ -140,8 +165,6 @@ const DRINK_IMAGE_FILES: Record<string, string> = {
   'White Russian':            'white-russian.jpg',
   'Black Russian':            'black-russian.jpg',
   'Alexander':                'alexander.jpg',
-  'Grasshopper':              'grasshopper.jpg',
-  'Mudslide':                 'mudslide.jpg',
   'Manhattan':                'manhattan.jpg',
   'Rob Roy':                  'rob-roy.jpg',
   'French 75':                'french-75.jpg',
@@ -174,18 +197,18 @@ const DRINK_IMAGE_FILES: Record<string, string> = {
   'Sunrise Mocktail':         'sunrise-mocktail.jpg',
   'Limonada Suíça':           'limonada-suica.jpg',
   'Mocktail Tropical':        'mocktail-tropical.jpg',
-  // PDF drinks
-  'Acapulco':                 'acapulco.jpg',
-  'Alabama Slammer':          'alabama-slammer.jpg',
-  'Alexandra':                'alexandra.jpg',
-  'Banshee':                  'banshee.jpg',
-  'Batida do Mário':          'batida-mario.jpg',
-  'Chi-Chi':                  'chi-chi.jpg',
-  'Godmother':                'godmother.jpg',
-  'Pain Killer':              'pain-killer.jpg',
-  'Prairie Fire':             'prairie-fire.jpg',
-  'Purple Passion':           'purple-passion.jpg',
-  'Scooter':                  'scooter.jpg',
+  'Sangria':                  'sangria.jpg',
+  'Mimosa':                   'mimosa.jpg',
+  'Bellini':                  'bellini.jpg',
+  'Rusty Nail':               'rusty-nail.jpg',
+  'Hot Toddy':                'hot-toddy.jpg',
+  'Michelada':                'michelada.jpg',
+  'Eggnog':                   'eggnog.jpg',
+  'Rabo de Galo':             'rabo-de-galo.jpg',
+  'Boulevardier':             'boulevardier.jpg',
+  'Vesper Martini':           'vesper-martini.jpg',
+  'Sazerac':                  'sazerac.jpg',
+  'Last Word':                'last-word.jpg',
 }
 
 function getFallbackByName(drink: Drink): string {
@@ -199,7 +222,7 @@ function getFallbackByName(drink: Drink): string {
   if (n.includes('spritz')) return '/drinks/aperol-spritz.jpg'
   if (n.includes('daiquiri')) return '/drinks/daiquiri.jpg'
   if (n.includes('shot') || n.includes('b52') || n.includes('kamikaze')) return '/drinks/tequila-shot.jpg'
-  if (n.includes('virgin') || n.includes('mocktail') || n.includes('sem álcool')) return '/drinks/virgin-mojito.jpg'
+  if (n.includes('virgin') || n.includes('mocktail')) return '/drinks/virgin-mojito.jpg'
   if (n.includes('colada')) return '/drinks/pina-colada.jpg'
   if (n.includes('russian')) return '/drinks/white-russian.jpg'
   if (n.includes('gin')) return '/drinks/gin-tonica.jpg'
@@ -207,6 +230,9 @@ function getFallbackByName(drink: Drink): string {
   if (n.includes('rum') || n.includes('cuba')) return '/drinks/cuba-libre.jpg'
   if (n.includes('whisky') || n.includes('whiskey') || n.includes('bourbon')) return '/drinks/old-fashioned.jpg'
   if (n.includes('tequila')) return '/drinks/margarita.jpg'
+  if (n.includes('champagne') || n.includes('mimosa') || n.includes('bellini')) return '/drinks/mimosa.jpg'
+  if (n.includes('sangria')) return '/drinks/sangria.jpg'
+  if (n.includes('cerveja') || n.includes('shandy') || n.includes('michelada')) return '/drinks/michelada.jpg'
   return '/drinks/placeholder.jpg'
 }
 

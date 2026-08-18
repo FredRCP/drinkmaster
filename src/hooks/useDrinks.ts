@@ -14,34 +14,28 @@ export function useDrinks() {
   useEffect(() => {
     async function load() {
       try {
-        const select = '*,drink_ingredients(ingredient_id,quantity,unit,is_optional,sort_order,notes,ingredient:ingredients(id,name,category,alcohol_content,is_common,image_url))'
+        const select = [
+          '*',
+          'drink_ingredients(ingredient_id,quantity,unit,is_optional,sort_order,notes,ingredient:ingredients(id,name,category,alcohol_content,is_common,image_url))',
+          'glass_type:glass_types(id,name,emoji)',
+          'technique:techniques(id,name,description)',
+          'category:categories(id,name,icon,color)',
+        ].join(',')
 
-        // Sem filtro is_published por enquanto
-        const url = `${SUPABASE_URL}/rest/v1/drinks?select=${encodeURIComponent(select)}&order=name.asc`
+        const res = await fetch(
+          `${SUPABASE_URL}/rest/v1/drinks?select=${encodeURIComponent(select)}&order=name.asc`,
+          {
+            headers: {
+              apikey: SUPABASE_KEY,
+              Authorization: `Bearer ${SUPABASE_KEY}`,
+              'Accept-Profile': 'barilq',
+            },
+          }
+        )
 
-        const res = await fetch(url, {
-          headers: {
-            apikey: SUPABASE_KEY,
-            Authorization: `Bearer ${SUPABASE_KEY}`,
-            'Accept-Profile': 'barilq',
-          },
-        })
-
-        const text = await res.text()
-        console.log('drinks status:', res.status)
-        console.log('drinks response:', text.substring(0, 500))
-
-        if (!res.ok) throw new Error(`${res.status}: ${text}`)
-
-        const data: Drink[] = JSON.parse(text)
+        if (!res.ok) throw new Error(`${res.status}: ${await res.text()}`)
+        const data: Drink[] = await res.json()
         console.log('✓ drinks carregados:', data.length)
-
-        // Debug do primeiro drink
-        if (data.length > 0) {
-          console.log('Primeiro drink:', data[0].name)
-          console.log('drink_ingredients:', JSON.stringify(data[0].drink_ingredients?.slice(0,2)))
-        }
-
         setDrinks(data)
       } catch (err) {
         console.error('useDrinks error:', err)

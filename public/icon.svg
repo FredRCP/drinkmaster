@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- Fundo -->
+  <rect width="512" height="512" rx="96" fill="#1A0D0D"/>
+
+  <!-- Brilho sutil no topo -->
+  <ellipse cx="256" cy="80" rx="180" ry="60" fill="rgba(212,175,55,0.06)"/>
+
+  <!-- Letra D estilizada -->
+  <text
+    x="96"
+    y="340"
+    font-family="-apple-system, BlinkMacSystemFont, Georgia, serif"
+    font-size="320"
+    font-weight="800"
+    fill="#D4AF37"
+    letter-spacing="-10"
+  >D</text>
+
+  <!-- Taça de coquetel sobreposta no canto inferior direito do D -->
+  <!-- Topo da taça (triângulo) -->
+  <polygon
+    points="340,140 440,140 420,230 360,230"
+    fill="#1A0D0D"
+    stroke="#D4AF37"
+    stroke-width="10"
+    stroke-linejoin="round"
+  />
+  <!-- Haste da taça -->
+  <rect x="383" y="230" width="14" height="80" fill="#D4AF37" rx="4"/>
+  <!-- Base da taça -->
+  <rect x="350" y="308" width="80" height="14" fill="#D4AF37" rx="7"/>
+  <!-- Bebida dentro da taça (fill parcial) -->
+  <polygon
+    points="366,200 434,200 420,230 360,230"
+    fill="rgba(139,26,26,0.7)"
+  />
+  <!-- Borda superior da taça -->
+  <line x1="340" y1="140" x2="440" y2="140" stroke="#D4AF37" stroke-width="10" stroke-linecap="round"/>
+
+  <!-- Ponto decorativo — bolinha de cereja -->
+  <circle cx="440" cy="125" r="14" fill="#8B1A1A" stroke="#D4AF37" stroke-width="4"/>
+  <!-- Cabo da cereja -->
+  <path d="M440 111 Q450 95 445 82" stroke="#D4AF37" stroke-width="4" fill="none" stroke-linecap="round"/>
+
+  <!-- Linha dourada decorativa embaixo -->
+  <rect x="80" y="430" width="352" height="4" rx="2" fill="rgba(212,175,55,0.3)"/>
+</svg>

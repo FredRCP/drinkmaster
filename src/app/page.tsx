@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Compass, BookOpen, Heart } from 'lucide-react'
 import { useIngredients, useDrinks, usePantry, useFavorites } from '@/hooks/useData'
 import { DiscoverScreen } from '@/features/discover/DiscoverScreen'
@@ -10,15 +10,21 @@ import { SplashScreen } from '@/components/SplashScreen'
 
 type Tab = 'discover' | 'catalog' | 'favorites'
 
-const SPLASH_KEY = 'barilq_splash_shown'
+const SPLASH_KEY = 'drinkmaster_splash_shown'
 
 export default function Home() {
   const [tab, setTab] = useState<Tab>('discover')
-  const [splashDone, setSplashDone] = useState(() => {
-    // Só mostra splash uma vez por sessão
-    if (typeof window === 'undefined') return false
-    return sessionStorage.getItem(SPLASH_KEY) === 'true'
-  })
+
+  // Sempre false no servidor — useEffect lê sessionStorage só no cliente
+  const [splashDone, setSplashDone] = useState(false)
+  const [splashChecked, setSplashChecked] = useState(false)
+
+  useEffect(() => {
+    if (sessionStorage.getItem(SPLASH_KEY) === 'true') {
+      setSplashDone(true)
+    }
+    setSplashChecked(true)
+  }, [])
 
   const { ingredients, isLoading: loadingIng } = useIngredients()
   const { drinks, isLoading: loadingDrinks } = useDrinks()
@@ -37,6 +43,9 @@ export default function Home() {
     { key: 'catalog'   as Tab, icon: BookOpen,  label: 'Catálogo'  },
     { key: 'favorites' as Tab, icon: Heart,     label: 'Favoritos', badge: favCount },
   ]
+
+  // Não renderiza nada até checar o sessionStorage (evita flash)
+  if (!splashChecked) return null
 
   return (
     <div style={{ minHeight: '100vh', backgroundColor: 'var(--bg-base)' }}>
@@ -58,12 +67,7 @@ export default function Home() {
           justifyContent: 'space-between', padding: '0 16px',
         }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M8 22H16"/>
-              <path d="M12 11V22"/>
-              <path d="M20 7L4 7"/>
-              <path d="M20 2L4 2L6 9C6 10.1 7.8 11 12 11C16.2 11 18 10.1 18 9L20 2Z"/>
-            </svg>
+            <img src="/icon-192.png" alt="DrinkMaster" style={{ width: '28px', height: '28px', borderRadius: '6px' }} />
             <span style={{ color: 'var(--text-primary)', fontWeight: 800, fontSize: '1.1rem', letterSpacing: '-0.02em' }}>
               Drink<span style={{ color: 'var(--gold)' }}>Master</span>
             </span>
@@ -74,7 +78,7 @@ export default function Home() {
               <span style={{ color: 'var(--text-tertiary)', fontSize: '0.75rem' }}>Carregando...</span>
             ) : (
               <span style={{ color: 'var(--text-tertiary)', fontSize: '0.72rem' }}>
-                {drinks.length} drinks · {ingredients.length} ingredientes
+                {drinks.length} drinks
               </span>
             )}
             {count > 0 && (
@@ -97,11 +101,7 @@ export default function Home() {
       {/* Loading */}
       {isLoading && (
         <div style={{ textAlign: 'center', padding: '100px 20px' }}>
-          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ margin: '0 auto 16px', display: 'block', opacity: 0.6 }}>
-            <path d="M8 22H16"/><path d="M12 11V22"/>
-            <path d="M20 7L4 7"/>
-            <path d="M20 2L4 2L6 9C6 10.1 7.8 11 12 11C16.2 11 18 10.1 18 9L20 2Z"/>
-          </svg>
+          <img src="/icon-192.png" alt="" style={{ width: '56px', height: '56px', borderRadius: '14px', margin: '0 auto 16px', display: 'block', opacity: 0.7 }} />
           <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>Preparando o bar...</p>
         </div>
       )}
@@ -144,13 +144,13 @@ export default function Home() {
                 alignItems: 'center', justifyContent: 'center',
                 padding: '10px 0', gap: '3px', position: 'relative',
                 border: 'none', background: 'none', cursor: 'pointer',
-                opacity: isActive ? 1 : 0.5,
+                opacity: isActive ? 1 : 0.45,
                 transition: 'opacity 0.15s ease',
               }}>
                 <Icon
                   size={20}
                   strokeWidth={isActive ? 2.5 : 1.8}
-                  color={isActive ? '#D4AF37' : '#8B949E'}
+                  color={isActive ? '#D4AF37' : '#A89090'}
                   fill={isActive && t.key === 'favorites' ? '#D4AF37' : 'none'}
                 />
                 <span style={{
@@ -162,7 +162,7 @@ export default function Home() {
                 {t.badge && t.badge > 0 && (
                   <span style={{
                     position: 'absolute', top: '6px', right: 'calc(50% - 20px)',
-                    backgroundColor: '#F85149', color: '#fff',
+                    backgroundColor: '#8B1A1A', color: '#F0E6E6',
                     fontSize: '0.5rem', fontWeight: 800,
                     width: '14px', height: '14px', borderRadius: '50%',
                     display: 'flex', alignItems: 'center', justifyContent: 'center',

@@ -15,6 +15,9 @@ export function calculateDrinkScore(drink: Drink, selectedIds: string[]): DrinkM
   return { drink, score, matchCount: matched.length, totalRequired: required.length, missing, canMake: score === 100 }
 }
 
+/**
+ * Modo padrão: drinks com pelo menos 1 ingrediente selecionado, ordenados por score
+ */
 export function matchDrinks(drinks: Drink[], selectedIds: string[]): DrinkMatch[] {
   if (selectedIds.length === 0) return []
   return drinks
@@ -26,4 +29,21 @@ export function matchDrinks(drinks: Drink[], selectedIds: string[]): DrinkMatch[
       if (b.score !== a.score) return b.score - a.score
       return a.missing.length - b.missing.length
     })
+}
+
+/**
+ * Modo Exato: apenas drinks que contêm TODOS os ingredientes selecionados
+ */
+export function filterDrinksByIngredients(drinks: Drink[], selectedIds: string[]): DrinkMatch[] {
+  if (selectedIds.length === 0) return []
+
+  return drinks
+    .map((d) => calculateDrinkScore(d, selectedIds))
+    .filter((m) => {
+      const drinkIngredientIds = new Set(
+        m.drink.drink_ingredients.map((di) => di.ingredient_id)
+      )
+      return selectedIds.every((id) => drinkIngredientIds.has(id))
+    })
+    .sort((a, b) => b.score - a.score)
 }

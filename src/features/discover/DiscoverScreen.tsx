@@ -3,7 +3,7 @@
 import { useState, useMemo } from 'react'
 import { Search, X, ChevronDown, Wine } from 'lucide-react'
 import { Drink, Ingredient, CATEGORY_ICONS, CATEGORY_LABELS } from '@/types'
-import { matchDrinks } from '@/lib/drinkScore'
+import { matchDrinks, filterDrinksByIngredients } from '@/lib/drinkScore'
 import { DrinkCard } from '@/components/DrinkCard'
 import { DrinkModal } from '@/components/DrinkModal'
 
@@ -34,6 +34,7 @@ export function DiscoverScreen({ drinks, ingredients, selected, onToggle, onClea
   const [view, setView] = useState<'ingredients' | 'results'>('ingredients')
   const [selectedDrink, setSelectedDrink] = useState<any>(null)
   const [resultFilter, setResultFilter] = useState('all')
+  const [strictMode, setStrictMode] = useState(false)
 
   const grouped = useMemo(() => {
     const filtered = ingredients.filter((i) => i.name.toLowerCase().includes(search.toLowerCase()))
@@ -46,7 +47,12 @@ export function DiscoverScreen({ drinks, ingredients, selected, onToggle, onClea
     return map
   }, [ingredients, search])
 
-  const allMatches = useMemo(() => matchDrinks(drinks, selected), [drinks, selected])
+  const allMatches = useMemo(() => 
+    strictMode 
+      ? filterDrinksByIngredients(drinks, selected)
+      : matchDrinks(drinks, selected),
+    [drinks, selected, strictMode]
+  )
 
   const filteredMatches = useMemo(() => {
     if (resultFilter === 'all') return allMatches
@@ -123,6 +129,49 @@ export function DiscoverScreen({ drinks, ingredients, selected, onToggle, onClea
             </button>
           </div>
         )}
+      {/* Toggle modo estrito */}
+      {selected.length > 1 && (
+        <div style={{ paddingLeft: '16px', paddingRight: '16px', marginBottom: '12px' }}>
+          <button
+            onClick={() => setStrictMode(!strictMode)}
+            style={{
+              display: 'flex', alignItems: 'center', gap: '10px',
+              width: '100%', padding: '10px 14px',
+              backgroundColor: strictMode ? 'rgba(56,139,253,0.1)' : 'var(--bg-elevated)',
+              border: `1px solid ${strictMode ? '#388BFD' : 'var(--border-subtle)'}`,
+              borderRadius: 'var(--radius-md)', cursor: 'pointer',
+              transition: 'all 0.15s ease',
+            }}
+          >
+            {/* Toggle pill */}
+            <div style={{
+              width: '36px', height: '20px', borderRadius: '9999px',
+              backgroundColor: strictMode ? '#388BFD' : 'var(--border-default)',
+              position: 'relative', transition: 'background-color 0.2s ease',
+              flexShrink: 0,
+            }}>
+              <div style={{
+                position: 'absolute', top: '2px',
+                left: strictMode ? '18px' : '2px',
+                width: '16px', height: '16px', borderRadius: '50%',
+                backgroundColor: '#fff',
+                transition: 'left 0.2s ease',
+                boxShadow: '0 1px 3px rgba(0,0,0,0.3)',
+              }} />
+            </div>
+            <div style={{ textAlign: 'left' }}>
+              <p style={{ color: strictMode ? '#388BFD' : 'var(--text-primary)', fontSize: '0.85rem', fontWeight: 600, margin: 0 }}>
+                Modo Exato
+              </p>
+              <p style={{ color: 'var(--text-tertiary)', fontSize: '0.72rem', margin: 0 }}>
+                {strictMode
+                  ? 'Mostrando drinks que usam TODOS os ingredientes selecionados'
+                  : 'Mostrando drinks com qualquer ingrediente selecionado'}
+              </p>
+            </div>
+          </button>
+        </div>
+      )}
       </div>
 
       {/* INGREDIENTES */}

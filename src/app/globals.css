@@ -1,47 +1,44 @@
 :root {
-  /* ===================== */
-  /* TEMA: VERMELHO VINHO  */
-  /* ===================== */
+  /* ======================== */
+  /* TEMA: CHARCOAL + VINHO   */
+  /* ======================== */
 
-  /* Backgrounds */
-  --bg-base:     #1A0D0D;
-  --bg-card:     #241212;
-  --bg-elevated: #2A1515;
-  --bg-overlay:  rgba(26,13,13,0.92);
+  /* Backgrounds neutros */
+  --bg-base:     #121214;
+  --bg-card:     #1C1C21;
+  --bg-elevated: #26262E;
+  --bg-overlay:  rgba(18,18,20,0.92);
 
   /* Texto */
-  --text-primary:   #F0E6E6;
-  --text-secondary: #A89090;
-  --text-tertiary:  #6B5050;
-  --text-inverse:   #1A0D0D;
+  --text-primary:   #F4F4F5;
+  --text-secondary: #A1A1AA;
+  --text-tertiary:  #71717A;
+  --text-inverse:   #121214;
 
   /* Bordas */
-  --border-subtle:   rgba(180,60,60,0.12);
-  --border-default:  rgba(180,60,60,0.22);
-  --border-emphasis: rgba(180,60,60,0.40);
+  --border-subtle:   rgba(255,255,255,0.08);
+  --border-default:  rgba(255,255,255,0.15);
+  --border-emphasis: rgba(255,255,255,0.28);
 
-  /* Dourado */
-  --gold:        #D4AF37;
-  --gold-muted:  rgba(212,175,55,0.12);
-  --gold-border: rgba(212,175,55,0.30);
+  /* Dourado âmbar vivo */
+  --gold:        #F59E0B;
+  --gold-muted:  rgba(245,158,11,0.15);
+  --gold-border: rgba(245,158,11,0.35);
 
-  /* Verde (can make) */
+  /* Vinho — só para badges e acentos */
+  --wine:        #991B1B;
+  --wine-light:  #B91C1C;
+  --wine-muted:  rgba(153,27,27,0.18);
+
+  /* Verde */
   --green-muted: rgba(63,185,80,0.12);
 
-  /* Bordô accent */
-  --wine:        #8B1A1A;
-  --wine-light:  #B22222;
-  --wine-muted:  rgba(139,26,26,0.15);
-
-  /* Raio e layout */
-  --radius-sm:  6px;
-  --radius-md:  10px;
-  --radius-lg:  14px;
+  /* Raios */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
 }
 
-/* =================== */
-/* RESET E BASE        */
-/* =================== */
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
@@ -60,27 +57,10 @@ html, body {
   overscroll-behavior: none;
 }
 
-/* Scrollbar customizada */
 ::-webkit-scrollbar { width: 4px; height: 4px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: var(--border-default); border-radius: 9999px; }
 
-/* Inputs */
-input, textarea, select, button {
-  font-family: inherit;
-  font-size: inherit;
-}
-
+input, textarea, select, button { font-family: inherit; font-size: inherit; }
 input::placeholder { color: var(--text-tertiary); }
-
-/* Seleção de texto */
-::selection {
-  background: rgba(212,175,55,0.25);
-  color: var(--text-primary);
-}
-
-/* Safe area para dispositivos com notch */
-#__next {
-  min-height: 100vh;
-  min-height: -webkit-fill-available;
-}
+::selection { background: rgba(245,158,11,0.25); color: var(--text-primary); }

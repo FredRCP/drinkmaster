@@ -1,28 +1,25 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { Compass, BookOpen, Heart } from 'lucide-react'
+import { Compass, BookOpen, Heart, Info } from 'lucide-react'
 import { useIngredients, useDrinks, usePantry, useFavorites } from '@/hooks/useData'
 import { DiscoverScreen } from '@/features/discover/DiscoverScreen'
 import { CatalogScreen } from '@/features/catalog/CatalogScreen'
 import { FavoritesScreen } from '@/features/favorites/FavoritesScreen'
 import { SplashScreen } from '@/components/SplashScreen'
+import { AboutModal } from '@/components/aboutmodal'
 
 type Tab = 'discover' | 'catalog' | 'favorites'
-
 const SPLASH_KEY = 'drinkmaster_splash_shown'
 
 export default function Home() {
   const [tab, setTab] = useState<Tab>('discover')
-
-  // Sempre false no servidor — useEffect lê sessionStorage só no cliente
   const [splashDone, setSplashDone] = useState(false)
   const [splashChecked, setSplashChecked] = useState(false)
+  const [showAbout, setShowAbout] = useState(false)
 
   useEffect(() => {
-    if (sessionStorage.getItem(SPLASH_KEY) === 'true') {
-      setSplashDone(true)
-    }
+    if (sessionStorage.getItem(SPLASH_KEY) === 'true') setSplashDone(true)
     setSplashChecked(true)
   }, [])
 
@@ -44,14 +41,13 @@ export default function Home() {
     { key: 'favorites' as Tab, icon: Heart,     label: 'Favoritos', badge: favCount },
   ]
 
-  // Não renderiza nada até checar o sessionStorage (evita flash)
   if (!splashChecked) return null
 
   return (
     <div style={{ minHeight: '100vh', backgroundColor: 'var(--bg-base)' }}>
 
-      {/* Splash screen — só na primeira visita da sessão */}
       {!splashDone && <SplashScreen onFinish={handleSplashFinish} />}
+      {showAbout && <AboutModal onClose={() => setShowAbout(false)} />}
 
       {/* Header */}
       <header style={{
@@ -66,17 +62,20 @@ export default function Home() {
           height: '52px', display: 'flex', alignItems: 'center',
           justifyContent: 'space-between', padding: '0 16px',
         }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          {/* Logo */}
+          <button
+            onClick={() => setShowAbout(true)}
+            style={{ display: 'flex', alignItems: 'center', gap: '8px', border: 'none', background: 'none', cursor: 'pointer', padding: 0 }}
+          >
             <img src="/icon-192.png" alt="DrinkMaster" style={{ width: '28px', height: '28px', borderRadius: '6px' }} />
             <span style={{ color: 'var(--text-primary)', fontWeight: 800, fontSize: '1.1rem', letterSpacing: '-0.02em' }}>
               Drink<span style={{ color: 'var(--gold)' }}>Master</span>
             </span>
-          </div>
+          </button>
 
+          {/* Direita */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-            {isLoading ? (
-              <span style={{ color: 'var(--text-tertiary)', fontSize: '0.75rem' }}>Carregando...</span>
-            ) : (
+            {!isLoading && (
               <span style={{ color: 'var(--text-tertiary)', fontSize: '0.72rem' }}>
                 {drinks.length} drinks
               </span>
@@ -88,12 +87,19 @@ export default function Home() {
                 border: '1px solid var(--gold-border)',
                 borderRadius: '9999px', padding: '3px 10px',
               }}>
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M12 2v20M2 12h20"/>
                 </svg>
                 <span style={{ color: 'var(--gold)', fontSize: '0.75rem', fontWeight: 700 }}>{count}</span>
               </div>
             )}
+            <button
+              onClick={() => setShowAbout(true)}
+              style={{ border: 'none', background: 'none', cursor: 'pointer', display: 'flex', padding: '4px', opacity: 0.5 }}
+              title="Sobre o DrinkMaster"
+            >
+              <Info size={16} color="var(--text-secondary)" />
+            </button>
           </div>
         </div>
       </header>
@@ -135,7 +141,7 @@ export default function Home() {
         paddingBottom: 'env(safe-area-inset-bottom)',
       }}>
         <div style={{ maxWidth: '640px', margin: '0 auto', display: 'flex' }}>
-          {tabs.map((t) => {
+          {tabs.map(t => {
             const isActive = tab === t.key
             const Icon = t.icon
             return (
@@ -150,8 +156,8 @@ export default function Home() {
                 <Icon
                   size={20}
                   strokeWidth={isActive ? 2.5 : 1.8}
-                  color={isActive ? '#D4AF37' : '#A89090'}
-                  fill={isActive && t.key === 'favorites' ? '#D4AF37' : 'none'}
+                  color={isActive ? 'var(--gold)' : 'var(--text-secondary)'}
+                  fill={isActive && t.key === 'favorites' ? 'var(--gold)' : 'none'}
                 />
                 <span style={{
                   fontSize: '0.65rem',
@@ -162,7 +168,7 @@ export default function Home() {
                 {t.badge && t.badge > 0 && (
                   <span style={{
                     position: 'absolute', top: '6px', right: 'calc(50% - 20px)',
-                    backgroundColor: '#8B1A1A', color: '#F0E6E6',
+                    backgroundColor: 'var(--wine)', color: '#F4F4F5',
                     fontSize: '0.5rem', fontWeight: 800,
                     width: '14px', height: '14px', borderRadius: '50%',
                     display: 'flex', alignItems: 'center', justifyContent: 'center',

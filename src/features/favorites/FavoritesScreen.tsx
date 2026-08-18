@@ -17,7 +17,7 @@ export function FavoritesScreen({ drinks, favorites, onToggleFavorite }: Favorit
   const favoriteDrinks = drinks.filter(d => favorites.includes(d.id))
 
   return (
-    <div style={{ padding: '20px 16px 100px' }}>
+    <div style={{ padding: '20px 16px 120px' }}>
       <div style={{ marginBottom: '20px' }}>
         <h2 style={{ color: 'var(--text-primary)', fontSize: '1.25rem', fontWeight: 800, marginBottom: '4px' }}>
           Meus Favoritos
@@ -45,6 +45,26 @@ export function FavoritesScreen({ drinks, favorites, onToggleFavorite }: Favorit
           ))}
         </div>
       )}
+
+      {/* Rodapé RCP Creative */}
+      <div style={{
+        marginTop: '48px', paddingTop: '24px',
+        borderTop: '1px solid var(--border-subtle)',
+        textAlign: 'center',
+      }}>
+        <p style={{ color: 'var(--text-tertiary)', fontSize: '0.72rem', marginBottom: '6px' }}>
+          Feito com 🍸 por
+        </p>
+        <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
+          <img src="/icon-192.png" alt="RCP Creative" style={{ width: '20px', height: '20px', borderRadius: '5px', opacity: 0.7 }} />
+          <span style={{ color: 'var(--text-secondary)', fontSize: '0.82rem', fontWeight: 700, letterSpacing: '0.05em' }}>
+            RCP Creative
+          </span>
+        </div>
+        <p style={{ color: 'var(--text-tertiary)', fontSize: '0.65rem', marginTop: '6px', opacity: 0.6 }}>
+          DrinkMaster v1.0 · {new Date().getFullYear()}
+        </p>
+      </div>
 
       {selectedDrink && (
         <DrinkModal drink={selectedDrink}

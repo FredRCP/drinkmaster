@@ -15,15 +15,15 @@ interface CatalogScreenProps {
 type DifficultyFilter = 'all' | 'easy' | 'medium' | 'hard'
 
 const TAG_PILLS = [
-  { label: 'Todos',          value: 'all',         color: '#8B949E' },
-  { label: '🇧🇷 Brasileiros', value: 'brasileiro',  color: '#3FB950' },
-  { label: '🍹 Tropicais',   value: 'tropical',    color: '#F97316' },
-  { label: '🥃 Shots',       value: 'shot',        color: '#EF4444' },
-  { label: '🧃 Sem Álcool',  value: 'sem-álcool',  color: '#388BFD' },
-  { label: '🍦 Cremosos',    value: 'cremoso',     color: '#ECE0D1' },
-  { label: '🏆 Clássicos',   value: 'clássico',    color: '#D4AF37' },
-  { label: '🍋 Agridoces',   value: 'agridoce',    color: '#84CC16' },
-  { label: '🔥 Fortes',      value: 'potente',     color: '#DC2626' },
+  { label: 'Todos',          value: 'all',        color: '#8B949E' },
+  { label: '🇧🇷 Brasileiros', value: 'brasileiro', color: '#3FB950' },
+  { label: '🍹 Tropicais',   value: 'tropical',   color: '#F97316' },
+  { label: '🥃 Shots',       value: 'shot',       color: '#EF4444' },
+  { label: '🧃 Sem Álcool',  value: 'sem-álcool', color: '#388BFD' },
+  { label: '🍦 Cremosos',    value: 'cremoso',    color: '#ECE0D1' },
+  { label: '🏆 Clássicos',   value: 'clássico',   color: '#D4AF37' },
+  { label: '🍋 Agridoces',   value: 'agridoce',   color: '#84CC16' },
+  { label: '🔥 Fortes',      value: 'potente',    color: '#DC2626' },
 ]
 
 export function getBaseAlcoholBadge(base: string | null): { label: string; color: string; bg: string } {
@@ -62,41 +62,54 @@ export function CatalogScreen({ drinks, favorites, onToggleFavorite }: CatalogSc
   }, [drinks, search, difficulty, activeTag])
 
   return (
-    <div style={{ padding: '16px 16px 100px' }}>
+    <div style={{ paddingBottom: '100px' }}>
+      <style>{`
+        .pills-scroll::-webkit-scrollbar { height: 3px; }
+        .pills-scroll::-webkit-scrollbar-track { background: transparent; }
+        .pills-scroll::-webkit-scrollbar-thumb { background: rgba(245,158,11,0.3); border-radius: 9999px; }
+        @media (max-width: 640px) {
+          .pills-scroll::-webkit-scrollbar { display: none; }
+        }
+      `}</style>
 
       {/* Busca */}
-      <div style={{ position: 'relative', marginBottom: '12px' }}>
-        <Search size={16} color="#8B949E" style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', pointerEvents: 'none' }} />
-        <input
-          type="text" placeholder="Buscar drink..."
-          value={search} onChange={(e) => setSearch(e.target.value)}
-          style={{
-            width: '100%', padding: '11px 36px 11px 38px',
-            backgroundColor: 'var(--bg-elevated)',
-            border: '1px solid var(--border-default)',
-            borderRadius: 'var(--radius-md)',
-            color: 'var(--text-primary)', fontSize: '0.9rem', outline: 'none',
-          }}
-          onFocus={(e) => { e.target.style.borderColor = 'var(--gold)' }}
-          onBlur={(e) => { e.target.style.borderColor = 'var(--border-default)' }}
-        />
-        {search && (
-          <button onClick={() => setSearch('')} style={{
-            position: 'absolute', right: '10px', top: '50%', transform: 'translateY(-50%)',
-            background: 'none', border: 'none', cursor: 'pointer', display: 'flex',
-          }}>
-            <X size={14} color="#8B949E" />
-          </button>
-        )}
+      <div style={{ padding: '16px 16px 0' }}>
+        <div style={{ position: 'relative', marginBottom: '12px' }}>
+          <Search size={16} color="#8B949E" style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', pointerEvents: 'none' }} />
+          <input
+            type="text" placeholder="Buscar drink..."
+            value={search} onChange={(e) => setSearch(e.target.value)}
+            style={{
+              width: '100%', padding: '11px 36px 11px 38px',
+              backgroundColor: 'var(--bg-elevated)',
+              border: '1px solid var(--border-default)',
+              borderRadius: 'var(--radius-md)',
+              color: 'var(--text-primary)', fontSize: '0.9rem', outline: 'none',
+            }}
+            onFocus={(e) => { e.target.style.borderColor = 'var(--gold)' }}
+            onBlur={(e) => { e.target.style.borderColor = 'var(--border-default)' }}
+          />
+          {search && (
+            <button onClick={() => setSearch('')} style={{
+              position: 'absolute', right: '10px', top: '50%', transform: 'translateY(-50%)',
+              background: 'none', border: 'none', cursor: 'pointer', display: 'flex',
+            }}>
+              <X size={14} color="#8B949E" />
+            </button>
+          )}
+        </div>
       </div>
 
-      {/* Pills de categoria */}
-      <div style={{ display: 'flex', gap: '6px', overflowX: 'auto', paddingBottom: '8px', marginBottom: '8px', scrollbarWidth: 'none' }}>
+      {/* Pills de categoria — scroll horizontal */}
+      <div className="pills-scroll" style={{
+        display: 'flex', gap: '6px', overflowX: 'auto',
+        padding: '0 16px 8px', marginBottom: '4px',
+      }}>
         {TAG_PILLS.map(pill => {
           const isActive = activeTag === pill.value
           return (
             <button key={pill.value} onClick={() => setActiveTag(pill.value)} style={{
-              padding: '5px 14px', borderRadius: '9999px', whiteSpace: 'nowrap',
+              padding: '5px 14px', borderRadius: '9999px', whiteSpace: 'nowrap', flexShrink: 0,
               backgroundColor: isActive ? `${pill.color}22` : 'transparent',
               border: `1px solid ${isActive ? pill.color : 'var(--border-subtle)'}`,
               color: isActive ? pill.color : 'var(--text-secondary)',
@@ -108,14 +121,17 @@ export function CatalogScreen({ drinks, favorites, onToggleFavorite }: CatalogSc
       </div>
 
       {/* Pills de dificuldade */}
-      <div style={{ display: 'flex', gap: '6px', marginBottom: '14px' }}>
+      <div className="pills-scroll" style={{
+        display: 'flex', gap: '6px', overflowX: 'auto',
+        padding: '0 16px 12px',
+      }}>
         {(['all', 'easy', 'medium', 'hard'] as const).map(d => {
           const labels = { all: 'Qualquer nível', easy: 'Fácil', medium: 'Médio', hard: 'Difícil' }
           const colors = { all: 'var(--text-secondary)', easy: '#3FB950', medium: '#D29922', hard: '#F85149' }
           const isActive = difficulty === d
           return (
             <button key={d} onClick={() => setDifficulty(d)} style={{
-              padding: '5px 12px', borderRadius: '9999px', whiteSpace: 'nowrap',
+              padding: '5px 12px', borderRadius: '9999px', whiteSpace: 'nowrap', flexShrink: 0,
               backgroundColor: isActive ? `${colors[d]}22` : 'transparent',
               border: `1px solid ${isActive ? colors[d] : 'var(--border-subtle)'}`,
               color: isActive ? colors[d] : 'var(--text-secondary)',
@@ -126,28 +142,29 @@ export function CatalogScreen({ drinks, favorites, onToggleFavorite }: CatalogSc
         })}
       </div>
 
-      {/* Count */}
-      <p style={{ color: 'var(--text-tertiary)', fontSize: '0.75rem', marginBottom: '12px' }}>
-        {filtered.length} drink{filtered.length !== 1 ? 's' : ''}
-        {search && ` para "${search}"`}
-      </p>
+      {/* Count + Grid */}
+      <div style={{ padding: '0 16px' }}>
+        <p style={{ color: 'var(--text-tertiary)', fontSize: '0.75rem', marginBottom: '12px' }}>
+          {filtered.length} drink{filtered.length !== 1 ? 's' : ''}
+          {search && ` para "${search}"`}
+        </p>
 
-      {/* Grid */}
-      {filtered.length === 0 ? (
-        <div style={{ textAlign: 'center', padding: '60px 20px' }}>
-          <Search size={36} color="#484F58" style={{ margin: '0 auto 12px', display: 'block' }} />
-          <p style={{ color: 'var(--text-primary)', fontWeight: 600, marginBottom: '8px' }}>Nenhum drink encontrado</p>
-          <p style={{ color: 'var(--text-secondary)', fontSize: '0.85rem' }}>Tente outro filtro ou busca</p>
-        </div>
-      ) : (
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '10px' }}>
-          {filtered.map(drink => (
-            <DrinkCard key={drink.id} drink={drink}
-              isFavorite={favorites.includes(drink.id)}
-              onClick={() => setSelectedDrink(drink)} />
-          ))}
-        </div>
-      )}
+        {filtered.length === 0 ? (
+          <div style={{ textAlign: 'center', padding: '60px 20px' }}>
+            <Search size={36} color="#484F58" style={{ margin: '0 auto 12px', display: 'block' }} />
+            <p style={{ color: 'var(--text-primary)', fontWeight: 600, marginBottom: '8px' }}>Nenhum drink encontrado</p>
+            <p style={{ color: 'var(--text-secondary)', fontSize: '0.85rem' }}>Tente outro filtro ou busca</p>
+          </div>
+        ) : (
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '10px' }}>
+            {filtered.map(drink => (
+              <DrinkCard key={drink.id} drink={drink}
+                isFavorite={favorites.includes(drink.id)}
+                onClick={() => setSelectedDrink(drink)} />
+            ))}
+          </div>
+        )}
+      </div>
 
       {selectedDrink && (
         <DrinkModal drink={selectedDrink}

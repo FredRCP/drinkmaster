@@ -1,0 +1,197 @@
+📸 LISTA EXATA DE FOTOS — DrinkMaster
+========================================
+Total: 191 arquivos
+Pasta: public/drinks/
+========================================
+
+  1. abacaxi-fizz.jpg
+  2. acapulco.jpg
+  3. affogato-cocktail.jpg
+  4. alabama-slammer.jpg
+  5. alexander.jpg
+  6. alexandra.jpg
+  7. alexiana.jpg
+  8. alleluia.jpg
+  9. amaretto-sour.jpg
+ 10. anisette-shot.jpg
+ 11. aperol-spritz.jpg
+ 12. apple-cobbler.jpg
+ 13. apple-mule.jpg
+ 14. arnold-palmer.jpg
+ 15. aviation.jpg
+ 16. b52.jpg
+ 17. banana-cream.jpg
+ 18. banshee.jpg
+ 19. batida-coco.jpg
+ 20. batida-maracuja.jpg
+ 21. batida-mario.jpg
+ 22. beachcomber.jpg
+ 23. bellini.jpg
+ 24. between-the-sheets.jpg
+ 25. big-john.jpg
+ 26. black-lady.jpg
+ 27. black-russian.jpg
+ 28. bloody-mary.jpg
+ 29. blow-job.jpg
+ 30. blue-lagoon.jpg
+ 31. bomba.jpg
+ 32. boulevardier.jpg
+ 33. bramble.jpg
+ 34. caesar.jpg
+ 35. caipirinha-abacaxi.jpg
+ 36. caipirinha-maracuja.jpg
+ 37. caipirinha-melancia.jpg
+ 38. caipirinha-morango.jpg
+ 39. caipirinha.jpg
+ 40. caipirosca.jpg
+ 41. caipivodka-manga.jpg
+ 42. caju-amigo.jpg
+ 43. calvados-sour.jpg
+ 44. cardinal.jpg
+ 45. cassis-mule.jpg
+ 46. cassis-spritz.jpg
+ 47. chantaco.jpg
+ 48. cherry-sour.jpg
+ 49. chi-chi.jpg
+ 50. chocolate-martini.jpg
+ 51. clover-club.jpg
+ 52. coco-loco.jpg
+ 53. cosmopolitan.jpg
+ 54. crimson.jpg
+ 55. cuba-libre.jpg
+ 56. daiquiri.jpg
+ 57. dark-and-stormy.jpg
+ 58. devil-tail.jpg
+ 59. earthquake.jpg
+ 60. east-india.jpg
+ 61. eggnog.jpg
+ 62. espresso-martini.jpg
+ 63. espumante-morango.jpg
+ 64. esquimo.jpg
+ 65. flamingo.jpg
+ 66. florida-mocktail.jpg
+ 67. framboise-royale.jpg
+ 68. french-75.jpg
+ 69. frostbite.jpg
+ 70. gauguin.jpg
+ 71. gimlet.jpg
+ 72. gin-fizz.jpg
+ 73. gin-tonica.jpg
+ 74. godmother.jpg
+ 75. golden-dawn.jpg
+ 76. grasshopper.jpg
+ 77. green-hope.jpg
+ 78. hammerhead.jpg
+ 79. harvey-wallbanger.jpg
+ 80. honeymoon.jpg
+ 81. hot-pants.jpg
+ 82. hot-toddy.jpg
+ 83. hugo-spritz.jpg
+ 84. jungle-bird.jpg
+ 85. kamikaze.jpg
+ 86. kir-royal.jpg
+ 87. kir.jpg
+ 88. la-jolla.jpg
+ 89. lady-killer.jpg
+ 90. last-word.jpg
+ 91. lemon-drop-shot.jpg
+ 92. lemon-mint.jpg
+ 93. limonada-suica.jpg
+ 94. limoncello-spritz.jpg
+ 95. loch-lomond.jpg
+ 96. long-island-iced-tea.jpg
+ 97. macieira-cola.jpg
+ 98. macunaima.jpg
+ 99. mai-tai.jpg
+100. malibu-cola.jpg
+101. malibu-sunrise.jpg
+102. mango-mule.jpg
+103. manhattan.jpg
+104. margarita-frozen.jpg
+105. margarita.jpg
+106. martini-classico.jpg
+107. mermaids-song.jpg
+108. mezcal-negroni.jpg
+109. michelada.jpg
+110. midori-sour.jpg
+111. mimosa.jpg
+112. mint-frappe.jpg
+113. mocktail-tropical.jpg
+114. mojito.jpg
+115. moscow-mule.jpg
+116. mudslide.jpg
+117. naked-and-famous.jpg
+118. negroni.jpg
+119. nutcracker.jpg
+120. old-fashioned.jpg
+121. ole.jpg
+122. orange-punch.jpg
+123. orgasmo.jpg
+124. pain-killer.jpg
+125. paloma.jpg
+126. papaia-tropical.jpg
+127. paper-plane.jpg
+128. paradis-punch.jpg
+129. passion-cup.jpg
+130. peach-daiquiri.jpg
+131. peach-fizz.jpg
+132. pear-martini.jpg
+133. penicillin.jpg
+134. pina-colada.jpg
+135. pisco-sour.jpg
+136. pornstar-martini.jpg
+137. porto-flip.jpg
+138. porto-tonico.jpg
+139. prairie-fire.jpg
+140. purple-passion.jpg
+141. quaker.jpg
+142. rabo-de-galo.jpg
+143. raspberry-cosmo.jpg
+144. rob-roy.jpg
+145. rum-sour.jpg
+146. rusty-nail.jpg
+147. sake-sour.jpg
+148. sangria.jpg
+149. sazerac.jpg
+150. scooter.jpg
+151. screwdriver.jpg
+152. sex-on-the-beach.jpg
+153. shady-lady.jpg
+154. shandy.jpg
+155. shirley-temple.jpg
+156. shot-baileys.jpg
+157. sidecar.jpg
+158. silk-stockings.jpg
+159. silver-fizz.jpg
+160. sneaky-pete.jpg
+161. spicy-margarita.jpg
+162. spring-fever.jpg
+163. spritz-veneziano.jpg
+164. strawberry-daiquiri.jpg
+165. strawberry-gin-fizz.jpg
+166. strawberry-mule.jpg
+167. sunrise-mocktail.jpg
+168. t-bird.jpg
+169. t-g-v.jpg
+170. tahiti-club.jpg
+171. tequila-boom.jpg
+172. tequila-shot.jpg
+173. tequila-sunrise.jpg
+174. tom-and-jerry.jpg
+175. tom-collins.jpg
+176. tommy-margarita.jpg
+177. tropical-gold.jpg
+178. vanilla-vodka-sour.jpg
+179. vesper-martini.jpg
+180. virgin-mary.jpg
+181. virgin-mojito.jpg
+182. virgin-pina-colada.jpg
+183. vodka-cranberry.jpg
+184. vodka-melancia.jpg
+185. vodka-tonica.jpg
+186. watermelon-margarita.jpg
+187. whisky-sour.jpg
+188. white-margarita.jpg
+189. white-russian.jpg
+190. woman-warrior.jpg
+191. zombie.jpg

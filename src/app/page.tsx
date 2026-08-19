@@ -1,31 +1,39 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { Compass, BookOpen, Heart, Info } from 'lucide-react'
+import { Compass, BookOpen, Heart, Info, BookMarked } from 'lucide-react'
 import { useIngredients, useDrinks, usePantry, useFavorites } from '@/hooks/useData'
 import { DiscoverScreen } from '@/features/discover/DiscoverScreen'
 import { CatalogScreen } from '@/features/catalog/CatalogScreen'
 import { FavoritesScreen } from '@/features/favorites/FavoritesScreen'
 import { SplashScreen } from '@/components/SplashScreen'
-import { AboutModal } from '@/components/aboutmodal'
+import { AboutModal } from '@/components/AboutModals'
+import { AgeGate } from '@/components/AgeGate'
+import { GuideModal } from '@/components/GuideModal'
 
 type Tab = 'discover' | 'catalog' | 'favorites'
-const SPLASH_KEY = 'drinkmaster_splash_shown'
+const SPLASH_KEY   = 'drinkmaster_splash_shown'
+const AGE_KEY      = 'drinkmaster_age_confirmed'
 
 export default function Home() {
   const [tab, setTab] = useState<Tab>('discover')
-  const [splashDone, setSplashDone] = useState(false)
+  const [splashDone, setSplashDone]     = useState(false)
   const [splashChecked, setSplashChecked] = useState(false)
-  const [showAbout, setShowAbout] = useState(false)
+  const [ageConfirmed, setAgeConfirmed] = useState(false)
+  const [ageChecked, setAgeChecked]     = useState(false)
+  const [showAbout, setShowAbout]       = useState(false)
+  const [showGuide, setShowGuide]       = useState(false)
 
   useEffect(() => {
     if (sessionStorage.getItem(SPLASH_KEY) === 'true') setSplashDone(true)
+    if (localStorage.getItem(AGE_KEY) === 'true') setAgeConfirmed(true)
     setSplashChecked(true)
+    setAgeChecked(true)
   }, [])
 
   const { ingredients, isLoading: loadingIng } = useIngredients()
-  const { drinks, isLoading: loadingDrinks } = useDrinks()
-  const { selected, toggle, clear, count } = usePantry()
+  const { drinks, isLoading: loadingDrinks }   = useDrinks()
+  const { selected, toggle, clear, count }     = usePantry()
   const { favorites, toggle: toggleFav, count: favCount } = useFavorites()
 
   const isLoading = loadingIng || loadingDrinks
@@ -35,19 +43,28 @@ export default function Home() {
     setSplashDone(true)
   }
 
+  const handleAgeConfirm = () => {
+    localStorage.setItem(AGE_KEY, 'true')
+    setAgeConfirmed(true)
+  }
+
   const tabs = [
     { key: 'discover'  as Tab, icon: Compass,  label: 'Descobrir' },
     { key: 'catalog'   as Tab, icon: BookOpen,  label: 'Catálogo'  },
     { key: 'favorites' as Tab, icon: Heart,     label: 'Favoritos', badge: favCount },
   ]
 
-  if (!splashChecked) return null
+  if (!splashChecked || !ageChecked) return null
+
+  // Verificação de idade PRIMEIRO
+  if (!ageConfirmed) return <AgeGate onConfirm={handleAgeConfirm} />
 
   return (
     <div style={{ minHeight: '100vh', backgroundColor: 'var(--bg-base)' }}>
 
       {!splashDone && <SplashScreen onFinish={handleSplashFinish} />}
-      {showAbout && <AboutModal onClose={() => setShowAbout(false)} />}
+      {showAbout && <AboutModal onClose={() => setShowAbout(false)} onOpenGuide={() => { setShowAbout(false); setShowGuide(true) }} />}
+      {showGuide && <GuideModal onClose={() => setShowGuide(false)} />}
 
       {/* Header */}
       <header style={{
@@ -62,19 +79,17 @@ export default function Home() {
           height: '52px', display: 'flex', alignItems: 'center',
           justifyContent: 'space-between', padding: '0 16px',
         }}>
-          {/* Logo */}
-          <button
-            onClick={() => setShowAbout(true)}
-            style={{ display: 'flex', alignItems: 'center', gap: '8px', border: 'none', background: 'none', cursor: 'pointer', padding: 0 }}
-          >
+          <button onClick={() => setShowAbout(true)} style={{
+            display: 'flex', alignItems: 'center', gap: '8px',
+            border: 'none', background: 'none', cursor: 'pointer', padding: 0,
+          }}>
             <img src="/icon-192.png" alt="DrinkMaster" style={{ width: '28px', height: '28px', borderRadius: '6px' }} />
             <span style={{ color: 'var(--text-primary)', fontWeight: 800, fontSize: '1.1rem', letterSpacing: '-0.02em' }}>
               Drink<span style={{ color: 'var(--gold)' }}>Master</span>
             </span>
           </button>
 
-          {/* Direita */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
             {!isLoading && (
               <span style={{ color: 'var(--text-tertiary)', fontSize: '0.72rem' }}>
                 {drinks.length} drinks
@@ -93,11 +108,18 @@ export default function Home() {
                 <span style={{ color: 'var(--gold)', fontSize: '0.75rem', fontWeight: 700 }}>{count}</span>
               </div>
             )}
-            <button
-              onClick={() => setShowAbout(true)}
-              style={{ border: 'none', background: 'none', cursor: 'pointer', display: 'flex', padding: '4px', opacity: 0.5 }}
-              title="Sobre o DrinkMaster"
-            >
+            {/* Botão Guia do Bar */}
+            <button onClick={() => setShowGuide(true)} style={{
+              border: 'none', background: 'none', cursor: 'pointer',
+              display: 'flex', padding: '4px', opacity: 0.6,
+            }} title="Guia do Bar">
+              <BookMarked size={16} color="var(--text-secondary)" />
+            </button>
+            {/* Botão Sobre */}
+            <button onClick={() => setShowAbout(true)} style={{
+              border: 'none', background: 'none', cursor: 'pointer',
+              display: 'flex', padding: '4px', opacity: 0.6,
+            }} title="Sobre o DrinkMaster">
               <Info size={16} color="var(--text-secondary)" />
             </button>
           </div>
@@ -160,8 +182,7 @@ export default function Home() {
                   fill={isActive && t.key === 'favorites' ? 'var(--gold)' : 'none'}
                 />
                 <span style={{
-                  fontSize: '0.65rem',
-                  fontWeight: isActive ? 700 : 400,
+                  fontSize: '0.65rem', fontWeight: isActive ? 700 : 400,
                   color: isActive ? 'var(--gold)' : 'var(--text-secondary)',
                 }}>{t.label}</span>
 

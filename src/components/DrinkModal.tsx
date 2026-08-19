@@ -94,7 +94,7 @@ export function DrinkModal({ drink, score, missing, isFavorite, onToggleFavorite
             </span>
             {drink.alcohol_content != null && (
               <span style={{ fontSize: '0.72rem', color: 'var(--text-secondary)', backgroundColor: 'var(--bg-elevated)', padding: '3px 10px', borderRadius: '9999px' }}>
-                🍷 {drink.alcohol_content}% ABV
+                🍷 {drink.alcohol_content}% teor alcoólico
               </span>
             )}
           </div>

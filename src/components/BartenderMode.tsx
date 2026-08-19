@@ -164,7 +164,7 @@ export function BartenderMode({ drink, onClose }: BartenderModeProps) {
             </span>
             {drink.alcohol_content && (
               <span style={{ fontSize: '0.7rem', color: '#8B949E', backgroundColor: 'rgba(139,148,158,0.12)', padding: '2px 8px', borderRadius: '9999px' }}>
-                🍷 {drink.alcohol_content}% ABV
+                🍷 {drink.alcohol_content}% teor alcoólico
               </span>
             )}
           </div>

@@ -1,4 +1,4 @@
-# 🍸 BarIQ - Professional Cocktail Discovery PWA
+# 🍸 DrinkMaster - Professional Cocktail Discovery PWA
 
 A sophisticated, professional-grade Progressive Web App for discovering cocktails based on your available ingredients, built with modern web technologies and designed for elegance.
 

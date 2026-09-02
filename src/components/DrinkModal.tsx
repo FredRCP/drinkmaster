@@ -42,7 +42,7 @@ export function DrinkModal({ drink, score, missing, isFavorite, onToggleFavorite
       .map(di => `• ${di.ingredient.name} — ${di.quantity} ${di.unit}`)
       .join('\n')
 
-    const texto = `🍸 ${drink.name} — DrinkMaster\n\nIngredientes:\n${ingredientes}\n\nReceita completa em:\nhttps://drinkmaster-nine.vercel.app`
+    const texto = `🍸 ${drink.name} — DrinkMaster\n\nIngredientes:\n${ingredientes}\n\nReceita completa em:\nhttps://drinkmasterrcp.vercel.app`
 
     if (navigator.share) {
       try {

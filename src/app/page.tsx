@@ -168,8 +168,6 @@ export default function Home() {
                   boxShadow: '0 4px 24px rgba(245,158,11,0.3)',
                   transition: 'transform 0.1s ease',
                 }}
-                onMouseDown={e => (e.currentTarget.style.transform = 'scale(0.98)')}
-                onMouseUp={e => (e.currentTarget.style.transform = 'scale(1)')}
               >
                 <div style={{ width: '44px', height: '44px', borderRadius: '12px', backgroundColor: 'rgba(0,0,0,0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.3rem', flexShrink: 0 }}>
                   📖
@@ -192,8 +190,6 @@ export default function Home() {
                   display: 'flex', alignItems: 'center', gap: '14px',
                   transition: 'transform 0.1s ease',
                 }}
-                onMouseDown={e => (e.currentTarget.style.transform = 'scale(0.98)')}
-                onMouseUp={e => (e.currentTarget.style.transform = 'scale(1)')}
               >
                 <div style={{ width: '44px', height: '44px', borderRadius: '12px', backgroundColor: 'var(--gold-muted)', border: '1px solid var(--gold-border)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.3rem', flexShrink: 0 }}>
                   🧂

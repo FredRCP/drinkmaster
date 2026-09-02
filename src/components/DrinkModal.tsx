@@ -5,6 +5,28 @@ import { Share2 } from 'lucide-react'
 import { Drink, getDrinkImage, DIFFICULTY_LABELS, DIFFICULTY_COLORS, TECHNIQUE_EQUIPMENT, TECHNIQUE_TIP } from '@/types'
 import { BartenderMode } from './BartenderMode'
 
+// Pluraliza unidades quando quantidade > 1
+function formatUnit(quantity: number, unit: string): string {
+  if (unit === 'completar') return 'completar'
+  if (quantity <= 1) return `${quantity} ${unit}`
+  const plural: Record<string, string> = {
+    'unidade':     'unidades',
+    'fatia':       'fatias',
+    'folha':       'folhas',
+    'gota':        'gotas',
+    'cubo':        'cubos',
+    'toque':       'toques',
+    'colher cha':  'colheres de chá',
+    'colher sopa': 'colheres de sopa',
+    'dash':        'dashes',
+    'borrifada':   'borrifadas',
+    'ml':          'ml',
+    'g':           'g',
+    'completar':   'completar',
+  }
+  return `${quantity} ${plural[unit] || unit}`
+}
+
 interface DrinkModalProps {
   drink: Drink
   score?: number
@@ -210,7 +232,7 @@ export function DrinkModal({ drink, score, missing, isFavorite, onToggleFavorite
                       {di.is_optional && <span style={{ color: 'var(--text-tertiary)', fontSize: '0.72rem' }}> (opcional)</span>}
                     </span>
                     <span style={{ color: 'var(--text-tertiary)', fontSize: '0.78rem', marginLeft: '8px', whiteSpace: 'nowrap' }}>
-                      {di.quantity} {di.unit}
+                      {formatUnit(di.quantity, di.unit)}
                     </span>
                   </div>
                 )

@@ -8,6 +8,26 @@ interface BartenderModeProps {
   onClose: () => void
 }
 
+function formatUnit(quantity: number, unit: string): string {
+  if (unit === 'completar') return 'completar'
+  if (quantity <= 1) return `${quantity} ${unit}`
+  const plural: Record<string, string> = {
+    'unidade':     'unidades',
+    'fatia':       'fatias',
+    'folha':       'folhas',
+    'gota':        'gotas',
+    'cubo':        'cubos',
+    'toque':       'toques',
+    'colher cha':  'colheres de chá',
+    'colher sopa': 'colheres de sopa',
+    'dash':        'dashes',
+    'borrifada':   'borrifadas',
+    'ml':          'ml',
+    'g':           'g',
+  }
+  return `${quantity} ${plural[unit] || unit}`
+}
+
 export function BartenderMode({ drink, onClose }: BartenderModeProps) {
   const image = getDrinkImage(drink)
   const diffColor = DIFFICULTY_COLORS[drink.difficulty]
@@ -222,7 +242,7 @@ export function BartenderMode({ drink, onClose }: BartenderModeProps) {
                     {di.is_optional && <span style={{ color: '#484F58', fontSize: '0.72rem' }}> (opcional)</span>}
                   </span>
                   <span style={{ color: '#484F58', fontSize: '0.8rem' }}>
-                    {di.quantity} {di.unit}
+                    {formatUnit(di.quantity, di.unit)}
                   </span>
                 </div>
               ))}

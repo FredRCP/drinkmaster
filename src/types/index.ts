@@ -121,13 +121,13 @@ export const TECHNIQUE_TIP: Record<string, string> = {
 const DRINK_IMAGE_FILES: Record<string, string> = {
   // Brasileiros
   'Caipirinha':                 'caipirinha.jpg',
-  'Caipirosca':                 'caipirosca.jpg',
+  'Caipiroska':                 'caipiroska.jpg',
   'Caipirinha de Morango':      'caipirinha-morango.jpg',
   'Caipirinha de Maracujá':     'caipirinha-maracuja.jpg',
   'Caipirinha de Melancia':     'caipirinha-melancia.jpg',
   'Caipirinha de Abacaxi':      'caipirinha-abacaxi.jpg',
   'Caipirinha de Uva':          'caipirinha-uva.jpg',
-  'Caipivodka de Manga':        'caipivodka-manga.jpg',
+  'Caipiroska de Manga':        'caipiroska-manga.jpg',
   'Batida de Coco':             'batida-coco.jpg',
   'Batida de Maracujá':         'batida-maracuja.jpg',
   'Batida de Banana':           'batida-banana.jpg',

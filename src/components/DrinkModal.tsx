@@ -36,6 +36,24 @@ export function DrinkModal({ drink, score, missing, isFavorite, onToggleFavorite
     return () => window.removeEventListener('keydown', handler)
   }, [onClose])
 
+  const handleShare = async () => {
+    const ingredientes = drink.drink_ingredients
+      .sort((a, b) => a.sort_order - b.sort_order)
+      .map(di => `• ${di.ingredient.name} — ${di.quantity} ${di.unit}`)
+      .join('\n')
+
+    const texto = `🍸 ${drink.name} — DrinkMaster\n\nIngredientes:\n${ingredientes}\n\nReceita completa em:\nhttps://drinkmaster-nine.vercel.app`
+
+    if (navigator.share) {
+      try {
+        await navigator.share({ title: `🍸 ${drink.name}`, text: texto })
+      } catch (_) {}
+    } else {
+      await navigator.clipboard.writeText(texto)
+      alert('Receita copiada! Cole onde quiser 😄')
+    }
+  }
+
   if (bartenderMode) {
     return <BartenderMode drink={drink} onClose={() => setBartenderMode(false)} />
   }
@@ -67,7 +85,10 @@ export function DrinkModal({ drink, score, missing, isFavorite, onToggleFavorite
           <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, var(--bg-card) 0%, transparent 55%)' }} />
           <div style={{ position: 'absolute', top: '10px', left: '10px', right: '10px', display: 'flex', justifyContent: 'space-between' }}>
             <button onClick={onClose} style={{ width: '32px', height: '32px', borderRadius: '50%', backgroundColor: 'rgba(0,0,0,0.65)', color: '#fff', fontSize: '0.8rem', display: 'flex', alignItems: 'center', justifyContent: 'center', border: 'none', cursor: 'pointer' }}>✕</button>
-            <button onClick={onToggleFavorite} style={{ width: '32px', height: '32px', borderRadius: '50%', backgroundColor: 'rgba(0,0,0,0.65)', fontSize: '1rem', display: 'flex', alignItems: 'center', justifyContent: 'center', border: 'none', cursor: 'pointer' }}>{isFavorite ? '❤️' : '🤍'}</button>
+            <div style={{ display: 'flex', gap: '6px' }}>
+              <button onClick={handleShare} style={{ width: '32px', height: '32px', borderRadius: '50%', backgroundColor: 'rgba(0,0,0,0.65)', fontSize: '0.9rem', display: 'flex', alignItems: 'center', justifyContent: 'center', border: 'none', cursor: 'pointer' }} title="Compartilhar">📤</button>
+              <button onClick={onToggleFavorite} style={{ width: '32px', height: '32px', borderRadius: '50%', backgroundColor: 'rgba(0,0,0,0.65)', fontSize: '1rem', display: 'flex', alignItems: 'center', justifyContent: 'center', border: 'none', cursor: 'pointer' }}>{isFavorite ? '❤️' : '🤍'}</button>
+            </div>
           </div>
           {score !== undefined && (
             <div style={{ position: 'absolute', bottom: '10px', right: '10px', backgroundColor: canMake ? 'rgba(63,185,80,0.92)' : 'rgba(212,175,55,0.92)', color: '#0D1117', fontSize: '0.7rem', fontWeight: 800, padding: '3px 10px', borderRadius: '9999px' }}>

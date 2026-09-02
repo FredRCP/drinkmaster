@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { Share2 } from 'lucide-react'
 import { Drink, getDrinkImage, DIFFICULTY_LABELS, DIFFICULTY_COLORS, TECHNIQUE_EQUIPMENT, TECHNIQUE_TIP } from '@/types'
 import { BartenderMode } from './BartenderMode'
 
@@ -42,14 +43,15 @@ export function DrinkModal({ drink, score, missing, isFavorite, onToggleFavorite
       .map(di => `• ${di.ingredient.name} — ${di.quantity} ${di.unit}`)
       .join('\n')
 
-    const texto = `🍸 ${drink.name} — DrinkMaster\n\nIngredientes:\n${ingredientes}\n\nReceita completa em:\nhttps://drinkmasterrcp.vercel.app`
+    const url = `https://drinkmasterrcp.vercel.app/?drink=${encodeURIComponent(drink.name)}`
+    const texto = `🍸 ${drink.name} — DrinkMaster\n\nIngredientes:\n${ingredientes}\n\nVeja a receita completa:\n${url}`
 
     if (navigator.share) {
       try {
-        await navigator.share({ title: `🍸 ${drink.name}`, text: texto })
+        await navigator.share({ title: `🍸 ${drink.name}`, text: texto, url })
       } catch (_) {}
     } else {
-      await navigator.clipboard.writeText(texto)
+      await navigator.clipboard.writeText(`${texto}\n${url}`)
       alert('Receita copiada! Cole onde quiser 😄')
     }
   }
@@ -86,7 +88,7 @@ export function DrinkModal({ drink, score, missing, isFavorite, onToggleFavorite
           <div style={{ position: 'absolute', top: '10px', left: '10px', right: '10px', display: 'flex', justifyContent: 'space-between' }}>
             <button onClick={onClose} style={{ width: '32px', height: '32px', borderRadius: '50%', backgroundColor: 'rgba(0,0,0,0.65)', color: '#fff', fontSize: '0.8rem', display: 'flex', alignItems: 'center', justifyContent: 'center', border: 'none', cursor: 'pointer' }}>✕</button>
             <div style={{ display: 'flex', gap: '6px' }}>
-              <button onClick={handleShare} style={{ width: '32px', height: '32px', borderRadius: '50%', backgroundColor: 'rgba(0,0,0,0.65)', fontSize: '0.9rem', display: 'flex', alignItems: 'center', justifyContent: 'center', border: 'none', cursor: 'pointer' }} title="Compartilhar">📤</button>
+              <button onClick={handleShare} style={{ width: '32px', height: '32px', borderRadius: '50%', backgroundColor: 'rgba(0,0,0,0.65)', display: 'flex', alignItems: 'center', justifyContent: 'center', border: 'none', cursor: 'pointer' }} title="Compartilhar"><Share2 size={14} color="#fff" /></button>
               <button onClick={onToggleFavorite} style={{ width: '32px', height: '32px', borderRadius: '50%', backgroundColor: 'rgba(0,0,0,0.65)', fontSize: '1rem', display: 'flex', alignItems: 'center', justifyContent: 'center', border: 'none', cursor: 'pointer' }}>{isFavorite ? '❤️' : '🤍'}</button>
             </div>
           </div>

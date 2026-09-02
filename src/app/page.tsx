@@ -10,6 +10,7 @@ import { SplashScreen } from '@/components/SplashScreen'
 import { AboutModal } from '@/components/AboutModals'
 import { AgeGate } from '@/components/AgeGate'
 import { GuideModal } from '@/components/GuideModal'
+import { DrinkModal } from '@/components/DrinkModal'
 
 type Tab = 'home' | 'discover' | 'catalog' | 'favorites'
 const SPLASH_KEY = 'drinkmaster_splash_shown'
@@ -23,6 +24,7 @@ export default function Home() {
   const [ageChecked, setAgeChecked]       = useState(false)
   const [showAbout, setShowAbout]         = useState(false)
   const [showGuide, setShowGuide]         = useState(false)
+  const [deepLinkDrink, setDeepLinkDrink]   = useState<any>(null)
 
   useEffect(() => {
     if (sessionStorage.getItem(SPLASH_KEY) === 'true') setSplashDone(true)
@@ -37,6 +39,20 @@ export default function Home() {
   const { favorites, toggle: toggleFav, count: favCount } = useFavorites()
 
   const isLoading = loadingIng || loadingDrinks
+
+  // Deep link — abre modal do drink se ?drink= na URL
+  useEffect(() => {
+    if (!drinks.length) return
+    const params = new URLSearchParams(window.location.search)
+    const drinkName = params.get('drink')
+    if (drinkName) {
+      const found = drinks.find(d => d.name.toLowerCase() === decodeURIComponent(drinkName).toLowerCase())
+      if (found) {
+        setDeepLinkDrink(found)
+        setTab('catalog')
+      }
+    }
+  }, [drinks])
 
   const handleSplashFinish = () => {
     sessionStorage.setItem(SPLASH_KEY, 'true')
@@ -61,6 +77,17 @@ export default function Home() {
     <div style={{ minHeight: '100vh', backgroundColor: 'var(--bg-base)' }}>
 
       {!splashDone && <SplashScreen onFinish={handleSplashFinish} />}
+      {deepLinkDrink && (
+        <DrinkModal
+          drink={deepLinkDrink}
+          isFavorite={favorites.includes(deepLinkDrink.id)}
+          onToggleFavorite={() => toggleFav(deepLinkDrink.id)}
+          onClose={() => {
+            setDeepLinkDrink(null)
+            window.history.replaceState({}, '', '/')
+          }}
+        />
+      )}
       {showAbout && <AboutModal onClose={() => setShowAbout(false)} onOpenGuide={() => { setShowAbout(false); setShowGuide(true) }} />}
       {showGuide && <GuideModal onClose={() => setShowGuide(false)} />}
 

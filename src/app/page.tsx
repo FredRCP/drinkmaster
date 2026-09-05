@@ -1,7 +1,7 @@
 'use client'
 
-import { useState, useEffect } from 'react'
-import { BookOpen, Heart, Info, BookMarked, Home as HomeIcon } from 'lucide-react'
+import { useState, useEffect, useRef } from 'react'
+import { BookOpen, Heart, Info, BookMarked, Home as HomeIcon, Settings, Volume2, VolumeX } from 'lucide-react'
 import { useIngredients, useDrinks, usePantry, useFavorites } from '@/hooks/useData'
 import { DiscoverScreen } from '@/features/discover/DiscoverScreen'
 import { CatalogScreen } from '@/features/catalog/CatalogScreen'
@@ -13,46 +13,125 @@ import { GuideModal } from '@/components/GuideModal'
 import { DrinkModal } from '@/components/DrinkModal'
 
 type Tab = 'home' | 'discover' | 'catalog' | 'favorites'
-const SPLASH_KEY = 'drinkmaster_splash_shown'
-const AGE_KEY    = 'drinkmaster_age_confirmed'
+const SPLASH_KEY  = 'drinkmaster_splash_shown'
+const AGE_KEY     = 'drinkmaster_age_confirmed'
+const SOUND_KEY   = 'drinkmaster_sound_enabled'
+
+// Sons via Web Audio API
+function createAudioContext() {
+  if (typeof window === 'undefined') return null
+  return new (window.AudioContext || (window as any).webkitAudioContext)()
+}
+
+function playTing(ctx: AudioContext) {
+  const osc = ctx.createOscillator()
+  const gain = ctx.createGain()
+  osc.connect(gain)
+  gain.connect(ctx.destination)
+  osc.type = 'sine'
+  osc.frequency.setValueAtTime(880, ctx.currentTime)
+  osc.frequency.exponentialRampToValueAtTime(440, ctx.currentTime + 0.3)
+  gain.gain.setValueAtTime(0.3, ctx.currentTime)
+  gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.6)
+  osc.start(ctx.currentTime)
+  osc.stop(ctx.currentTime + 0.6)
+}
+
+function playClick(ctx: AudioContext) {
+  const osc = ctx.createOscillator()
+  const gain = ctx.createGain()
+  osc.connect(gain)
+  gain.connect(ctx.destination)
+  osc.type = 'sine'
+  osc.frequency.setValueAtTime(600, ctx.currentTime)
+  gain.gain.setValueAtTime(0.15, ctx.currentTime)
+  gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.08)
+  osc.start(ctx.currentTime)
+  osc.stop(ctx.currentTime + 0.08)
+}
+
+function playShaker(ctx: AudioContext) {
+  const bufferSize = ctx.sampleRate * 0.4
+  const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate)
+  const data = buffer.getChannelData(0)
+  for (let i = 0; i < bufferSize; i++) {
+    data[i] = (Math.random() * 2 - 1) * Math.exp(-i / (ctx.sampleRate * 0.15))
+  }
+  const source = ctx.createBufferSource()
+  const gain = ctx.createGain()
+  source.buffer = buffer
+  source.connect(gain)
+  gain.connect(ctx.destination)
+  gain.gain.setValueAtTime(0.3, ctx.currentTime)
+  source.start(ctx.currentTime)
+}
 
 export default function Home() {
   const [tab, setTab] = useState<Tab>('home')
-  const [splashDone, setSplashDone]       = useState(false)
-  const [splashChecked, setSplashChecked] = useState(false)
-  const [ageConfirmed, setAgeConfirmed]   = useState(false)
-  const [ageChecked, setAgeChecked]       = useState(false)
-  const [showAbout, setShowAbout]         = useState(false)
-  const [showGuide, setShowGuide]         = useState(false)
+  const [splashDone, setSplashDone]         = useState(false)
+  const [splashChecked, setSplashChecked]   = useState(false)
+  const [ageConfirmed, setAgeConfirmed]     = useState(false)
+  const [ageChecked, setAgeChecked]         = useState(false)
+  const [showAbout, setShowAbout]           = useState(false)
+  const [showGuide, setShowGuide]           = useState(false)
+  const [showSettings, setShowSettings]     = useState(false)
+  const [soundEnabled, setSoundEnabled]     = useState(true)
   const [deepLinkDrink, setDeepLinkDrink]   = useState<any>(null)
+  const audioCtxRef = useRef<AudioContext | null>(null)
+  const settingsRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     if (sessionStorage.getItem(SPLASH_KEY) === 'true') setSplashDone(true)
     if (localStorage.getItem(AGE_KEY) === 'true') setAgeConfirmed(true)
+    const sound = localStorage.getItem(SOUND_KEY)
+    if (sound !== null) setSoundEnabled(sound === 'true')
     setSplashChecked(true)
     setAgeChecked(true)
   }, [])
 
-  const { ingredients, isLoading: loadingIng }   = useIngredients()
-  const { drinks, isLoading: loadingDrinks }      = useDrinks()
-  const { selected, toggle, clear, count }        = usePantry()
+  // Fecha menu ao clicar fora
+  useEffect(() => {
+    const handler = (e: MouseEvent) => {
+      if (settingsRef.current && !settingsRef.current.contains(e.target as Node)) {
+        setShowSettings(false)
+      }
+    }
+    document.addEventListener('mousedown', handler)
+    return () => document.removeEventListener('mousedown', handler)
+  }, [])
+
+  const { ingredients, isLoading: loadingIng } = useIngredients()
+  const { drinks, isLoading: loadingDrinks }   = useDrinks()
+  const { selected, toggle, clear, count }     = usePantry()
   const { favorites, toggle: toggleFav, count: favCount } = useFavorites()
 
   const isLoading = loadingIng || loadingDrinks
 
-  // Deep link — abre modal do drink se ?drink= na URL
+  // Deep link
   useEffect(() => {
     if (!drinks.length) return
     const params = new URLSearchParams(window.location.search)
     const drinkName = params.get('drink')
     if (drinkName) {
       const found = drinks.find(d => d.name.toLowerCase() === decodeURIComponent(drinkName).toLowerCase())
-      if (found) {
-        setDeepLinkDrink(found)
-        setTab('catalog')
-      }
+      if (found) { setDeepLinkDrink(found); setTab('catalog') }
     }
   }, [drinks])
+
+  const getAudioCtx = () => {
+    if (!audioCtxRef.current) audioCtxRef.current = createAudioContext()
+    return audioCtxRef.current
+  }
+
+  const playSound = (type: 'ting' | 'click' | 'shaker') => {
+    if (!soundEnabled) return
+    const ctx = getAudioCtx()
+    if (!ctx) return
+    if (ctx.state === 'suspended') ctx.resume()
+    if (type === 'ting')   playTing(ctx)
+    if (type === 'click')  playClick(ctx)
+    if (type === 'shaker') playShaker(ctx)
+  }
 
   const handleSplashFinish = () => {
     sessionStorage.setItem(SPLASH_KEY, 'true')
@@ -64,8 +143,14 @@ export default function Home() {
     setAgeConfirmed(true)
   }
 
+  const toggleSound = () => {
+    const next = !soundEnabled
+    setSoundEnabled(next)
+    localStorage.setItem(SOUND_KEY, String(next))
+  }
+
   const tabs = [
-    { key: 'home'      as Tab, icon: HomeIcon,     label: 'Início'    },
+    { key: 'home'      as Tab, icon: HomeIcon, label: 'Início'    },
     { key: 'catalog'   as Tab, icon: BookOpen,  label: 'Catálogo'  },
     { key: 'favorites' as Tab, icon: Heart,     label: 'Favoritos', badge: favCount },
   ]
@@ -77,19 +162,15 @@ export default function Home() {
     <div style={{ minHeight: '100vh', backgroundColor: 'var(--bg-base)' }}>
 
       {!splashDone && <SplashScreen onFinish={handleSplashFinish} />}
-      {deepLinkDrink && (
-        <DrinkModal
-          drink={deepLinkDrink}
-          isFavorite={favorites.includes(deepLinkDrink.id)}
-          onToggleFavorite={() => toggleFav(deepLinkDrink.id)}
-          onClose={() => {
-            setDeepLinkDrink(null)
-            window.history.replaceState({}, '', '/')
-          }}
-        />
-      )}
       {showAbout && <AboutModal onClose={() => setShowAbout(false)} onOpenGuide={() => { setShowAbout(false); setShowGuide(true) }} />}
       {showGuide && <GuideModal onClose={() => setShowGuide(false)} />}
+      {deepLinkDrink && (
+        <DrinkModal drink={deepLinkDrink}
+          isFavorite={favorites.includes(deepLinkDrink.id)}
+          onToggleFavorite={() => toggleFav(deepLinkDrink.id)}
+          onClose={() => { setDeepLinkDrink(null); window.history.replaceState({}, '', '/') }}
+        />
+      )}
 
       {/* Header */}
       <header style={{
@@ -99,12 +180,16 @@ export default function Home() {
         borderBottom: '1px solid var(--border-subtle)',
       }}>
         <div style={{ maxWidth: '640px', margin: '0 auto', height: '52px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 16px' }}>
-          <button onClick={() => setShowAbout(true)} style={{ display: 'flex', alignItems: 'center', gap: '8px', border: 'none', background: 'none', cursor: 'pointer', padding: 0 }}>
+
+          {/* Logo */}
+          <button onClick={() => setTab('home')} style={{ display: 'flex', alignItems: 'center', gap: '8px', border: 'none', background: 'none', cursor: 'pointer', padding: 0 }}>
             <img src="/icon-192.png" alt="DrinkMaster" style={{ width: '28px', height: '28px', borderRadius: '6px' }} />
             <span style={{ color: 'var(--text-primary)', fontWeight: 800, fontSize: '1.1rem', letterSpacing: '-0.02em' }}>
               Drink<span style={{ color: 'var(--gold)' }}>Master</span>
             </span>
           </button>
+
+          {/* Direita — contador + engrenagem */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
             {!isLoading && <span style={{ color: 'var(--text-tertiary)', fontSize: '0.72rem' }}>{drinks.length} drinks</span>}
             {count > 0 && (
@@ -113,12 +198,73 @@ export default function Home() {
                 <span style={{ color: 'var(--gold)', fontSize: '0.75rem', fontWeight: 700 }}>{count}</span>
               </div>
             )}
-            <button onClick={() => setShowGuide(true)} style={{ border: 'none', background: 'none', cursor: 'pointer', display: 'flex', padding: '4px', opacity: 0.6 }}>
-              <BookMarked size={16} color="var(--text-secondary)" />
-            </button>
-            <button onClick={() => setShowAbout(true)} style={{ border: 'none', background: 'none', cursor: 'pointer', display: 'flex', padding: '4px', opacity: 0.6 }}>
-              <Info size={16} color="var(--text-secondary)" />
-            </button>
+
+            {/* Engrenagem + menu suspenso */}
+            <div ref={settingsRef} style={{ position: 'relative' }}>
+              <button
+                onClick={() => setShowSettings(!showSettings)}
+                style={{ border: 'none', background: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', width: '32px', height: '32px', borderRadius: '8px', backgroundColor: showSettings ? 'var(--bg-elevated)' : 'transparent', transition: 'background 0.15s' }}
+              >
+                <Settings size={18} color="var(--text-secondary)" />
+              </button>
+
+              {/* Menu suspenso */}
+              {showSettings && (
+                <div style={{
+                  position: 'absolute', top: '40px', right: 0,
+                  backgroundColor: 'var(--bg-card)',
+                  border: '1px solid var(--border-default)',
+                  borderRadius: '12px', padding: '6px',
+                  minWidth: '200px', zIndex: 100,
+                  boxShadow: '0 8px 32px rgba(0,0,0,0.4)',
+                }}>
+                  {/* Sobre */}
+                  <button onClick={() => { setShowSettings(false); setShowAbout(true) }} style={{
+                    width: '100%', display: 'flex', alignItems: 'center', gap: '10px',
+                    padding: '10px 12px', borderRadius: '8px', border: 'none', background: 'none', cursor: 'pointer',
+                  }}
+                    onMouseEnter={e => (e.currentTarget.style.backgroundColor = 'var(--bg-elevated)')}
+                    onMouseLeave={e => (e.currentTarget.style.backgroundColor = 'transparent')}
+                  >
+                    <Info size={16} color="var(--text-secondary)" />
+                    <span style={{ color: 'var(--text-primary)', fontSize: '0.88rem' }}>Sobre o DrinkMaster</span>
+                  </button>
+
+                  {/* Guia do Bar */}
+                  <button onClick={() => { setShowSettings(false); setShowGuide(true) }} style={{
+                    width: '100%', display: 'flex', alignItems: 'center', gap: '10px',
+                    padding: '10px 12px', borderRadius: '8px', border: 'none', background: 'none', cursor: 'pointer',
+                  }}
+                    onMouseEnter={e => (e.currentTarget.style.backgroundColor = 'var(--bg-elevated)')}
+                    onMouseLeave={e => (e.currentTarget.style.backgroundColor = 'transparent')}
+                  >
+                    <BookMarked size={16} color="var(--text-secondary)" />
+                    <span style={{ color: 'var(--text-primary)', fontSize: '0.88rem' }}>Guia do Bar</span>
+                  </button>
+
+                  {/* Divisor */}
+                  <div style={{ height: '1px', backgroundColor: 'var(--border-subtle)', margin: '4px 0' }} />
+
+                  {/* Som */}
+                  <button onClick={() => { toggleSound(); playSound('click') }} style={{
+                    width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                    padding: '10px 12px', borderRadius: '8px', border: 'none', background: 'none', cursor: 'pointer',
+                  }}
+                    onMouseEnter={e => (e.currentTarget.style.backgroundColor = 'var(--bg-elevated)')}
+                    onMouseLeave={e => (e.currentTarget.style.backgroundColor = 'transparent')}
+                  >
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                      {soundEnabled ? <Volume2 size={16} color="var(--gold)" /> : <VolumeX size={16} color="var(--text-tertiary)" />}
+                      <span style={{ color: 'var(--text-primary)', fontSize: '0.88rem' }}>Sons</span>
+                    </div>
+                    {/* Toggle */}
+                    <div style={{ width: '32px', height: '18px', borderRadius: '9999px', backgroundColor: soundEnabled ? 'var(--gold)' : 'var(--border-default)', position: 'relative', transition: 'background 0.2s', flexShrink: 0 }}>
+                      <div style={{ position: 'absolute', top: '2px', left: soundEnabled ? '16px' : '2px', width: '14px', height: '14px', borderRadius: '50%', backgroundColor: '#fff', transition: 'left 0.2s', boxShadow: '0 1px 3px rgba(0,0,0,0.3)' }} />
+                    </div>
+                  </button>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </header>
@@ -135,43 +281,24 @@ export default function Home() {
       {!isLoading && (
         <div style={{ maxWidth: '640px', margin: '0 auto' }}>
 
-          {/* HOME — Tela intermediária */}
           {tab === 'home' && (
             <div style={{ padding: '40px 24px 120px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-
-              {/* Ícone */}
               <img src="/icon-192.png" alt="DrinkMaster" style={{ width: '80px', height: '80px', borderRadius: '20px', marginBottom: '16px', boxShadow: '0 8px 32px rgba(245,158,11,0.2)' }} />
-
-              {/* Título */}
-              <h1 style={{ color: 'var(--text-primary)', fontSize: '1.6rem', fontWeight: 900, marginBottom: '6px', letterSpacing: '-0.03em' }}>
-                Bem-vindo!
-              </h1>
-
-              {/* Linha dourada */}
+              <h1 style={{ color: 'var(--text-primary)', fontSize: '1.6rem', fontWeight: 900, marginBottom: '6px', letterSpacing: '-0.03em' }}>Bem-vindo!</h1>
               <div style={{ width: '40px', height: '2px', backgroundColor: 'var(--gold)', borderRadius: '9999px', marginBottom: '12px', opacity: 0.6 }} />
-
-              {/* Badge */}
               <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', backgroundColor: 'var(--gold-muted)', border: '1px solid var(--gold-border)', borderRadius: '9999px', padding: '5px 14px', marginBottom: '32px' }}>
                 <span style={{ fontSize: '0.75rem' }}>✨</span>
                 <span style={{ color: 'var(--gold)', fontSize: '0.8rem', fontWeight: 600 }}>O que você quer fazer hoje?</span>
               </div>
 
-              {/* Botão Ver Drinks → Catálogo */}
-              <button
-                onClick={() => setTab('catalog')}
-                style={{
-                  width: '100%', padding: '18px 20px',
-                  background: 'linear-gradient(135deg, var(--gold), #D97706)',
-                  border: 'none', borderRadius: '16px',
-                  cursor: 'pointer', marginBottom: '12px',
-                  display: 'flex', alignItems: 'center', gap: '14px',
-                  boxShadow: '0 4px 24px rgba(245,158,11,0.3)',
-                  transition: 'transform 0.1s ease',
-                }}
-              >
-                <div style={{ width: '44px', height: '44px', borderRadius: '12px', backgroundColor: 'rgba(0,0,0,0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.3rem', flexShrink: 0 }}>
-                  📖
-                </div>
+              <button onClick={() => { playSound('ting'); setTab('catalog') }} style={{
+                width: '100%', padding: '18px 20px',
+                background: 'linear-gradient(135deg, var(--gold), #D97706)',
+                border: 'none', borderRadius: '16px', cursor: 'pointer', marginBottom: '12px',
+                display: 'flex', alignItems: 'center', gap: '14px',
+                boxShadow: '0 4px 24px rgba(245,158,11,0.3)',
+              }}>
+                <div style={{ width: '44px', height: '44px', borderRadius: '12px', backgroundColor: 'rgba(0,0,0,0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.3rem', flexShrink: 0 }}>📖</div>
                 <div style={{ textAlign: 'left' }}>
                   <p style={{ color: '#121214', fontSize: '1rem', fontWeight: 800, margin: 0 }}>Ver Drinks</p>
                   <p style={{ color: 'rgba(0,0,0,0.5)', fontSize: '0.78rem', margin: '2px 0 0' }}>Explore o catálogo com {drinks.length} receitas</p>
@@ -179,21 +306,13 @@ export default function Home() {
                 <div style={{ marginLeft: 'auto', color: 'rgba(0,0,0,0.4)', fontSize: '1.2rem' }}>→</div>
               </button>
 
-              {/* Botão Meu Bar → Descobrir */}
-              <button
-                onClick={() => setTab('discover')}
-                style={{
-                  width: '100%', padding: '18px 20px',
-                  backgroundColor: 'var(--bg-card)',
-                  border: '1px solid var(--border-default)',
-                  borderRadius: '16px', cursor: 'pointer',
-                  display: 'flex', alignItems: 'center', gap: '14px',
-                  transition: 'transform 0.1s ease',
-                }}
-              >
-                <div style={{ width: '44px', height: '44px', borderRadius: '12px', backgroundColor: 'var(--gold-muted)', border: '1px solid var(--gold-border)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.3rem', flexShrink: 0 }}>
-                  🧂
-                </div>
+              <button onClick={() => { playSound('shaker'); setTab('discover') }} style={{
+                width: '100%', padding: '18px 20px',
+                backgroundColor: 'var(--bg-card)', border: '1px solid var(--border-default)',
+                borderRadius: '16px', cursor: 'pointer',
+                display: 'flex', alignItems: 'center', gap: '14px',
+              }}>
+                <div style={{ width: '44px', height: '44px', borderRadius: '12px', backgroundColor: 'var(--gold-muted)', border: '1px solid var(--gold-border)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.3rem', flexShrink: 0 }}>🧂</div>
                 <div style={{ textAlign: 'left' }}>
                   <p style={{ color: 'var(--text-primary)', fontSize: '1rem', fontWeight: 800, margin: 0 }}>Meu Bar</p>
                   <p style={{ color: 'var(--text-tertiary)', fontSize: '0.78rem', margin: '2px 0 0' }}>Descubra drinks com o que você tem</p>
@@ -201,7 +320,6 @@ export default function Home() {
                 <div style={{ marginLeft: 'auto', color: 'var(--text-tertiary)', fontSize: '1.2rem' }}>→</div>
               </button>
 
-              {/* Stats */}
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '10px', marginTop: '32px', width: '100%' }}>
                 {[
                   { label: 'Drinks', value: drinks.length + '+' },
@@ -218,10 +336,10 @@ export default function Home() {
           )}
 
           {tab === 'discover' && (
-            <DiscoverScreen drinks={drinks} ingredients={ingredients} selected={selected} onToggle={toggle} onClear={clear} favorites={favorites} onToggleFavorite={toggleFav} />
+            <DiscoverScreen drinks={drinks} ingredients={ingredients} selected={selected} onToggle={toggle} onClear={clear} favorites={favorites} onToggleFavorite={toggleFav} onPlaySound={playSound} />
           )}
           {tab === 'catalog' && (
-            <CatalogScreen drinks={drinks} favorites={favorites} onToggleFavorite={toggleFav} />
+            <CatalogScreen drinks={drinks} favorites={favorites} onToggleFavorite={toggleFav} onPlaySound={playSound} />
           )}
           {tab === 'favorites' && (
             <FavoritesScreen drinks={drinks} favorites={favorites} onToggleFavorite={toggleFav} />
@@ -236,7 +354,7 @@ export default function Home() {
             const isActive = tab === t.key
             const Icon = t.icon
             return (
-              <button key={t.key} onClick={() => setTab(t.key)} style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '10px 0', gap: '3px', position: 'relative', border: 'none', background: 'none', cursor: 'pointer', opacity: isActive ? 1 : 0.45, transition: 'opacity 0.15s ease' }}>
+              <button key={t.key} onClick={() => { playSound('click'); setTab(t.key) }} style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '10px 0', gap: '3px', position: 'relative', border: 'none', background: 'none', cursor: 'pointer', opacity: isActive ? 1 : 0.45, transition: 'opacity 0.15s ease' }}>
                 <Icon size={20} strokeWidth={isActive ? 2.5 : 1.8} color={isActive ? 'var(--gold)' : 'var(--text-secondary)'} fill={isActive && t.key === 'favorites' ? 'var(--gold)' : 'none'} />
                 <span style={{ fontSize: '0.65rem', fontWeight: isActive ? 700 : 400, color: isActive ? 'var(--gold)' : 'var(--text-secondary)' }}>{t.label}</span>
                 {t.badge && t.badge > 0 && (

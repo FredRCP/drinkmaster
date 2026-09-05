@@ -15,6 +15,7 @@ interface DiscoverScreenProps {
   onClear: () => void
   favorites: string[]
   onToggleFavorite: (id: string) => void
+  onPlaySound?: (type: 'ting' | 'click' | 'shaker') => void
 }
 
 const RESULT_PILLS = [
@@ -30,7 +31,7 @@ const RESULT_PILLS = [
 
 const CAT_ORDER = ['spirit', 'liqueur', 'fresh', 'juice', 'mixer', 'syrup', 'other']
 
-export function DiscoverScreen({ drinks, ingredients, selected, onToggle, onClear, favorites, onToggleFavorite }: DiscoverScreenProps) {
+export function DiscoverScreen({ drinks, ingredients, selected, onToggle, onClear, favorites, onToggleFavorite, onPlaySound }: DiscoverScreenProps) {
   const [search, setSearch] = useState('')
   const [openCats, setOpenCats] = useState<Set<string>>(new Set(['spirit', 'fresh', 'mixer']))
   const [view, setView] = useState<'ingredients' | 'results'>('ingredients')
@@ -78,6 +79,7 @@ export function DiscoverScreen({ drinks, ingredients, selected, onToggle, onClea
 
   const handleToggle = (id: string) => {
     if (navigator.vibrate) navigator.vibrate(8)
+    onPlaySound?.('click')
     onToggle(id)
   }
 
@@ -364,7 +366,7 @@ export function DiscoverScreen({ drinks, ingredients, selected, onToggle, onClea
                         <span style={{ backgroundColor: 'rgba(34,197,94,0.12)', color: '#22C55E', fontSize: '0.68rem', fontWeight: 700, padding: '2px 8px', borderRadius: '9999px' }}>{canMake.length}</span>
                       </div>
                       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '10px' }}>
-                        {canMake.map(m => <DrinkCard key={m.drink.id} drink={m.drink} score={m.score} isFavorite={favorites.includes(m.drink.id)} onClick={() => setSelectedDrink(m)} />)}
+                        {canMake.map(m => <DrinkCard key={m.drink.id} drink={m.drink} score={m.score} isFavorite={favorites.includes(m.drink.id)} onClick={() => { onPlaySound?.('ting'); setSelectedDrink(m) }} />)}
                       </div>
                     </section>
                   )}
@@ -376,7 +378,7 @@ export function DiscoverScreen({ drinks, ingredients, selected, onToggle, onClea
                         <span style={{ backgroundColor: 'var(--gold-muted)', color: 'var(--gold)', fontSize: '0.68rem', fontWeight: 700, padding: '2px 8px', borderRadius: '9999px' }}>{almostThere.length}</span>
                       </div>
                       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '10px' }}>
-                        {almostThere.map(m => <DrinkCard key={m.drink.id} drink={m.drink} score={m.score} missing={m.missing.map(i => i.name)} isFavorite={favorites.includes(m.drink.id)} onClick={() => setSelectedDrink(m)} />)}
+                        {almostThere.map(m => <DrinkCard key={m.drink.id} drink={m.drink} score={m.score} missing={m.missing.map(i => i.name)} isFavorite={favorites.includes(m.drink.id)} onClick={() => { onPlaySound?.('ting'); setSelectedDrink(m) }} />)}
                       </div>
                     </section>
                   )}
@@ -388,7 +390,7 @@ export function DiscoverScreen({ drinks, ingredients, selected, onToggle, onClea
                         <span style={{ backgroundColor: 'var(--bg-elevated)', color: 'var(--text-secondary)', fontSize: '0.68rem', fontWeight: 700, padding: '2px 8px', borderRadius: '9999px' }}>{others.length}</span>
                       </div>
                       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '10px' }}>
-                        {others.map(m => <DrinkCard key={m.drink.id} drink={m.drink} score={m.score} missing={m.missing.map(i => i.name)} isFavorite={favorites.includes(m.drink.id)} onClick={() => setSelectedDrink(m)} />)}
+                        {others.map(m => <DrinkCard key={m.drink.id} drink={m.drink} score={m.score} missing={m.missing.map(i => i.name)} isFavorite={favorites.includes(m.drink.id)} onClick={() => { onPlaySound?.('ting'); setSelectedDrink(m) }} />)}
                       </div>
                     </section>
                   )}

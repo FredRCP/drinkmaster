@@ -10,6 +10,7 @@ interface CatalogScreenProps {
   drinks: Drink[]
   favorites: string[]
   onToggleFavorite: (id: string) => void
+  onPlaySound?: (type: 'ting' | 'click' | 'shaker') => void
 }
 
 type DifficultyFilter = 'all' | 'easy' | 'medium' | 'hard'
@@ -45,7 +46,7 @@ export function getBaseAlcoholBadge(base: string | null): { label: string; color
   return map[base] || { label: base, color: '#8B949E', bg: 'rgba(139,148,158,0.12)' }
 }
 
-export function CatalogScreen({ drinks, favorites, onToggleFavorite }: CatalogScreenProps) {
+export function CatalogScreen({ drinks, favorites, onToggleFavorite, onPlaySound }: CatalogScreenProps) {
   const [search, setSearch] = useState('')
   const [difficulty, setDifficulty] = useState<DifficultyFilter>('all')
   const [activeTag, setActiveTag] = useState('all')
@@ -160,7 +161,7 @@ export function CatalogScreen({ drinks, favorites, onToggleFavorite }: CatalogSc
             {filtered.map(drink => (
               <DrinkCard key={drink.id} drink={drink}
                 isFavorite={favorites.includes(drink.id)}
-                onClick={() => setSelectedDrink(drink)} />
+                onClick={() => { onPlaySound?.('ting'); setSelectedDrink(drink) }} />
             ))}
           </div>
         )}

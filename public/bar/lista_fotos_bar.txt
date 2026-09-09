@@ -1,0 +1,104 @@
+📸 FOTOS DO GUIA DO BAR — DrinkMaster
+======================================
+Pasta destino: public/bar/
+Formato: JPG
+Tamanho ideal: 400x400px (quadrado)
+======================================
+
+🥃 COPOS (9 fotos)
+======================================
+01. copo-cocktail.jpg
+    Buscar: "martini glass cocktail"
+    Taça cônica para Martini e Cosmopolitan
+
+02. copo-old-fashioned.jpg
+    Buscar: "old fashioned rocks glass whiskey"
+    Copo baixo e largo para whisky
+
+03. copo-highball.jpg
+    Buscar: "highball glass gin tonic"
+    Copo alto e estreito
+
+04. copo-hurricane.jpg
+    Buscar: "hurricane glass tropical cocktail"
+    Copo curvado para tropicais
+
+05. copo-shot.jpg
+    Buscar: "shot glass bar"
+    Copinho de shot
+
+06. flute-champagne.jpg
+    Buscar: "champagne flute glass"
+    Taça alta e estreita para espumante
+
+07. taca-margarita.jpg
+    Buscar: "margarita glass salt rim"
+    Taça larga com borda de sal
+
+08. taca-vinho.jpg
+    Buscar: "wine glass red wine"
+    Taça de vinho redonda
+
+09. caneca-cobre.jpg
+    Buscar: "copper mug moscow mule"
+    Caneca de cobre para Moscow Mule
+
+🍹 UTENSÍLIOS (9 fotos)
+======================================
+10. balanca-bar.jpg
+    Buscar: "bar scale cocktail measuring"
+    Balança de precisão para bar
+
+11. colher-bar.jpg
+    Buscar: "bar spoon cocktail long spoon"
+    Colher longa de bar
+
+12. coqueteleira.jpg
+    Buscar: "cocktail shaker bar"
+    Coqueteleira metálica
+
+13. espremedor-citricos.jpg
+    Buscar: "citrus juicer bar lemon"
+    Espremedor de limão/laranja
+
+14. jigger.jpg
+    Buscar: "jigger cocktail measure bar"
+    Medidor duplo em ampulheta
+
+15. liquidificador.jpg
+    Buscar: "blender frozen cocktail bar"
+    Liquidificador para frozen
+
+16. mixing-glass.jpg
+    Buscar: "mixing glass cocktail bar stirring"
+    Copo de vidro para mexer
+
+17. muddler.jpg
+    Buscar: "muddler cocktail bar tool"
+    Socador de madeira/metal
+
+18. strainer.jpg
+    Buscar: "cocktail strainer hawthorne"
+    Coador com mola (Hawthorne)
+
+======================================
+📊 RESUMO
+======================================
+Total: 18 fotos
+Pasta: public/bar/
+Tamanho: 400x400px quadrado
+Formato: JPG qualidade 80%
+
+💡 DICA CANVA
+======================================
+1. Canvas 400x400px
+2. Cola a foto e define como fundo
+3. Centraliza no objeto principal
+4. Exporta como JPG qualidade alta
+5. Salva com o nome exato da lista
+
+🔍 SITES SUGERIDOS
+======================================
+- unsplash.com (gratuito)
+- pexels.com (gratuito)
+- freepik.com (alguns gratuitos)

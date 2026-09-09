@@ -64,6 +64,7 @@ export interface DrinkMatch {
   totalRequired: number
   missing: Ingredient[]
   canMake: boolean
+  hasOptionalMatch?: boolean
 }
 
 export const CATEGORY_LABELS: Record<string, string> = {
@@ -268,7 +269,7 @@ const DRINK_IMAGE_FILES: Record<string, string> = {
   'Tequila Boom':               'tequila-boom.jpg',
   'Shot de Baileys':            'shot-baileys.jpg',
   'Lemon Drop Shot':            'lemon-drop-shot.jpg',
-  'La Bomba':                   'la-bomba.jpg',
+  'Bomba':                      'bomba.jpg',
   'Earthquake':                 'earthquake.jpg',
   'Prairie Fire':               'prairie-fire.jpg',
   'T.G.V.':                     't-g-v.jpg',

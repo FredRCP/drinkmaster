@@ -10,40 +10,40 @@ interface GuideModalProps {
 type Section = 'glossario' | 'copos' | 'utensilios'
 
 const GLOSSARIO = [
-  { term: 'Angostura Bitters', def: 'O bitters mais famoso do mundo. Aromático e concentrado, usado em doses pequenas (dashes) para dar complexidade. Essencial no Old Fashioned e Manhattan.' },
-  { term: 'Aperitivo', def: 'Bebida servida antes das refeições para estimular o apetite. Ex: Aperol Spritz, Negroni, Kir.' },
-  { term: 'Bitters', def: 'Aromáticos concentrados usados em pequenas doses para dar complexidade e profundidade ao drinque. Ex: Angostura Bitters.' },
-  { term: 'Borrifada (Dash)', def: 'Quantidade mínima de ingrediente — cerca de 0,6ml. Obtida com uma borrifada rápida do frasco. Usada para bitters e aromatizantes.' },
-  { term: 'Build (Montar)', def: 'Técnica de preparar o drinque diretamente no copo, sem shaker. Ex: Gin Tônica, Cuba Libre.' },
-  { term: 'Coar (Strain)', def: 'Filtrar o drinque do shaker ou mixing glass para o copo usando um strainer, retendo o gelo.' },
-  { term: 'Digestivo', def: 'Bebida servida após as refeições para ajudar na digestão. Ex: Stinger, Alexander, Amaretto.' },
-  { term: 'Double (Dose Dupla)', def: 'Dose dupla do destilado principal — normalmente 60ml em vez de 30ml.' },
-  { term: 'Dry (Seco)', def: 'Sem açúcar ou com mínimo de adoçante. Um Martini Dry usa mínimo de vermute.' },
-  { term: 'Float (Flutuar)', def: 'Verter um ingrediente devagar pelo dorso de uma colher para que flutue por cima sem misturar, criando camadas de cor.' },
-  { term: 'Grenadine', def: 'Xarope de romã usado para dar cor vermelha e doçura. Icônico no Tequila Sunrise e Shirley Temple.' },
-  { term: 'Highball', def: 'Drinque simples com destilado + mixer em copo alto. Ex: Gin Tônica, Cuba Libre, Moscow Mule.' },
-  { term: 'IBA', def: 'International Bartenders Association — organização que define as receitas oficiais dos coquetéis clássicos reconhecidos mundialmente.' },
-  { term: 'Jigger', def: 'Medidor de metal em formato de ampulheta usado para medir doses com precisão. Um lado mede 30ml e o outro 60ml.' },
-  { term: 'Macerar', def: 'Amassar levemente frutas, ervas ou açúcar no fundo do copo com o muddler para liberar sabores e aromas. Essencial na Caipirinha e Mojito.' },
-  { term: 'Mise en Place', def: 'Expressão francesa que significa "tudo no lugar". Preparar todos os ingredientes e utensílios antes de começar o drinque.' },
-  { term: 'Mocktail', def: 'Coquetel sem álcool que imita a complexidade e apresentação de um drink alcoólico.' },
-  { term: 'Muddler (Socador)', def: 'Utensílio de madeira ou metal usado para macerar ingredientes. Essencial para Caipirinha, Mojito e qualquer drinque com frutas ou ervas.' },
-  { term: 'Neat', def: 'Destilado puro, sem gelo e sem mistura. Direto da garrafa para o copo.' },
-  { term: 'On the Rocks', def: 'Servido com pedras de gelo no copo.' },
-  { term: 'Orgeat', def: 'Xarope de amêndoa com água de laranjeira. Ingrediente tradicional do Mai Tai. Tem sabor adocicado e floral único.' },
-  { term: 'Proof', def: 'Medida americana de teor alcoólico. 1 proof = 0,5% de álcool. Ex: 80 proof = 40% teor alcoólico.' },
-  { term: 'Shakeado', def: 'Drinque preparado no shaker com gelo. Fica bem gelado, levemente diluído e aerado. Ideal para drinques com sucos e xaropes.' },
-  { term: 'Simples (Xarope)', def: 'Açúcar dissolvido em água na proporção 1:1. Base de muitos drinques, fácil de fazer em casa.' },
-  { term: 'Sour', def: 'Família de drinques com destilado + cítrico + adoçante. Ex: Whisky Sour, Amaretto Sour, Pisco Sour.' },
-  { term: 'Splash (Toque)', def: 'Pequena quantidade de ingrediente — menos que 15ml. Um "toque" para finalizar o drinque.' },
-  { term: 'Straight Up', def: 'Agitado ou mexido com gelo, mas servido sem gelo na taça. Bem gelado e concentrado.' },
-  { term: 'Strainer (Coador)', def: 'Coador metálico que se encaixa no shaker para coar o gelo ao servir. Mantém o drinque limpo e sem fragmentos.' },
-  { term: 'Teor Alcoólico', def: 'Percentual de álcool puro na bebida. Ex: Vodka 40% significa que 40% do volume é álcool puro.' },
-  { term: 'Tiki', def: 'Estilo de coquetelaria tropical inspirado na cultura polinésia. Usa rum, frutas exóticas e apresentação colorida. Ex: Mai Tai, Zombie.' },
-  { term: 'Top (Completar)', def: 'Finalizar o copo com um mixer — água com gás, tônica ou refrigerante — após adicionar os demais ingredientes.' },
+  { term: 'Angostura Bitters', foto: 'angostura-bitters.jpg', def: 'O bitters mais famoso do mundo. Aromático e concentrado, usado em doses pequenas (dashes) para dar complexidade. Essencial no Old Fashioned e Manhattan.' },
+  { term: 'Aperitivo', foto: 'aperitivos.jpg', def: 'Bebida servida antes das refeições para estimular o apetite. Ex: Aperol Spritz, Negroni, Kir.' },
+  { term: 'Bitters', foto: 'bitters.jpg', def: 'Aromáticos concentrados usados em pequenas doses para dar complexidade e profundidade ao drinque. Ex: Angostura Bitters.' },
+  { term: 'Borrifada (Dash)', foto: 'dash.jpg', def: 'Quantidade mínima de ingrediente — cerca de 0,6ml. Obtida com uma borrifada rápida do frasco. Usada para bitters e aromatizantes.' },
+  { term: 'Build (Montar)', foto: 'build.jpg', def: 'Técnica de preparar o drinque diretamente no copo, sem shaker. Ex: Gin Tônica, Cuba Libre.' },
+  { term: 'Coar (Strain)', foto: 'coar.jpg', def: 'Filtrar o drinque do shaker ou mixing glass para o copo usando um strainer, retendo o gelo.' },
+  { term: 'Digestivo', foto: 'digestivo.jpg', def: 'Bebida servida após as refeições para ajudar na digestão. Ex: Stinger, Alexander, Amaretto.' },
+  { term: 'Double (Dose Dupla)', foto: 'dosedupla.jpg', def: 'Dose dupla do destilado principal — normalmente 60ml em vez de 30ml.' },
+  { term: 'Dry (Seco)', foto: 'dry.jpg', def: 'Sem açúcar ou com mínimo de adoçante. Um Martini Dry usa mínimo de vermute.' },
+  { term: 'Float (Flutuar)', foto: 'float.jpg', def: 'Verter um ingrediente devagar pelo dorso de uma colher para que flutue por cima sem misturar, criando camadas de cor.' },
+  { term: 'Grenadine', foto: 'grenadine.jpg', def: 'Xarope de romã usado para dar cor vermelha e doçura. Icônico no Tequila Sunrise e Shirley Temple.' },
+  { term: 'Highball', foto: 'highball.jpg', def: 'Drinque simples com destilado + mixer em copo alto. Ex: Gin Tônica, Cuba Libre, Moscow Mule.' },
+  { term: 'IBA', foto: 'iba.jpg', def: 'International Bartenders Association — organização que define as receitas oficiais dos coquetéis clássicos reconhecidos mundialmente.' },
+  { term: 'Jigger', foto: 'jigger.jpg', def: 'Medidor de metal em formato de ampulheta usado para medir doses com precisão. Um lado mede 30ml e o outro 60ml.' },
+  { term: 'Macerar', foto: 'macerar.jpg', def: 'Amassar levemente frutas, ervas ou açúcar no fundo do copo com o muddler para liberar sabores e aromas. Essencial na Caipirinha e Mojito.' },
+  { term: 'Mise en Place', foto: 'mise-place.jpg', def: 'Expressão francesa que significa "tudo no lugar". Preparar todos os ingredientes e utensílios antes de começar o drinque.' },
+  { term: 'Mocktail', foto: 'mocktail.jpg', def: 'Coquetel sem álcool que imita a complexidade e apresentação de um drink alcoólico.' },
+  { term: 'Muddler (Socador)', foto: 'muddler.jpg', def: 'Utensílio de madeira ou metal usado para macerar ingredientes. Essencial para Caipirinha, Mojito e qualquer drinque com frutas ou ervas.' },
+  { term: 'Neat', foto: 'neat.jpg', def: 'Destilado puro, sem gelo e sem mistura. Direto da garrafa para o copo.' },
+  { term: 'On the Rocks', foto: 'on-the-rocks.jpg', def: 'Servido com pedras de gelo no copo.' },
+  { term: 'Orgeat', foto: 'orgeat.jpg', def: 'Xarope de amêndoa com água de laranjeira. Ingrediente tradicional do Mai Tai. Tem sabor adocicado e floral único.' },
+  { term: 'Proof', foto: 'proof.jpg', def: 'Medida americana de teor alcoólico. 1 proof = 0,5% de álcool. Ex: 80 proof = 40% teor alcoólico.' },
+  { term: 'Shakeado', foto: 'shakeado.jpg', def: 'Drinque preparado no shaker com gelo. Fica bem gelado, levemente diluído e aerado. Ideal para drinques com sucos e xaropes.' },
+  { term: 'Simples (Xarope)', foto: 'simples.jpg', def: 'Açúcar dissolvido em água na proporção 1:1. Base de muitos drinques, fácil de fazer em casa.' },
+  { term: 'Sour', foto: 'sour.jpg', def: 'Família de drinques com destilado + cítrico + adoçante. Ex: Whisky Sour, Amaretto Sour, Pisco Sour.' },
+  { term: 'Splash (Toque)', foto: 'splash.jpg', def: 'Pequena quantidade de ingrediente — menos que 15ml. Um "toque" para finalizar o drinque.' },
+  { term: 'Straight Up', foto: 'straight-up.jpg', def: 'Agitado ou mexido com gelo, mas servido sem gelo na taça. Bem gelado e concentrado.' },
+  { term: 'Strainer (Coador)', foto: 'strainer.jpg', def: 'Coador metálico que se encaixa no shaker para coar o gelo ao servir. Mantém o drinque limpo e sem fragmentos.' },
+  { term: 'Teor Alcoólico', foto: 'teor.jpg', def: 'Percentual de álcool puro na bebida. Ex: Vodka 40% significa que 40% do volume é álcool puro.' },
+  { term: 'Tiki', foto: 'tiki.jpg', def: 'Estilo de coquetelaria tropical inspirado na cultura polinésia. Usa rum, frutas exóticas e apresentação colorida. Ex: Mai Tai, Zombie.' },
+  { term: 'Top (Completar)', foto: 'top.jpg', def: 'Finalizar o copo com um mixer — água com gás, tônica ou refrigerante — após adicionar os demais ingredientes.' },
   { term: 'Twist', def: 'Casca de cítrico torcida sobre o drinque para liberar os óleos aromáticos da casca. Decoração e aroma ao mesmo tempo.' },
-  { term: 'Vermute', def: 'Vinho aromatizado com ervas e especiarias. Existe doce (tinto) e seco (branco). Ingrediente essencial no Martini e Negroni.' },
-  { term: 'Virgin', def: 'Versão sem álcool de um drinque clássico. Ex: Virgin Mojito, Virgin Mary.' },
+  { term: 'Vermute', foto: 'vermute.jpg', def: 'Vinho aromatizado com ervas e especiarias. Existe doce (tinto) e seco (branco). Ingrediente essencial no Martini e Negroni.' },
+  { term: 'Virgin', foto: 'virgin.jpg', def: 'Versão sem álcool de um drinque clássico. Ex: Virgin Mojito, Virgin Mary.' },
 ].sort((a, b) => a.term.localeCompare(b.term, 'pt-BR'))
 
 const COPOS = [
@@ -256,13 +256,24 @@ export function GuideModal({ onClose }: GuideModalProps) {
                 backgroundColor: 'var(--bg-elevated)',
                 border: '1px solid var(--border-subtle)',
                 borderRadius: '10px', padding: '12px 14px',
+                display: 'flex', gap: '12px', alignItems: 'flex-start',
               }}>
-                <p style={{ color: 'var(--gold)', fontSize: '0.85rem', fontWeight: 700, marginBottom: '4px' }}>
-                  {g.term}
-                </p>
-                <p style={{ color: 'var(--text-secondary)', fontSize: '0.82rem', lineHeight: 1.6, margin: 0 }}>
-                  {g.def}
-                </p>
+                {g.foto && (
+                  <img
+                    src={`/glossario/${g.foto}`}
+                    alt={g.term}
+                    style={{ width: '56px', height: '56px', borderRadius: '8px', objectFit: 'cover', flexShrink: 0 }}
+                    onError={e => { (e.currentTarget as HTMLImageElement).style.display = 'none' }}
+                  />
+                )}
+                <div>
+                  <p style={{ color: 'var(--gold)', fontSize: '0.85rem', fontWeight: 700, marginBottom: '4px' }}>
+                    {g.term}
+                  </p>
+                  <p style={{ color: 'var(--text-secondary)', fontSize: '0.82rem', lineHeight: 1.6, margin: 0 }}>
+                    {g.def}
+                  </p>
+                </div>
               </div>
             ))
           )}

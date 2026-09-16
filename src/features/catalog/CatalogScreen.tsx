@@ -17,7 +17,7 @@ type DifficultyFilter = 'all' | 'easy' | 'medium' | 'hard'
 
 const TAG_PILLS = [
   { label: 'Todos',          value: 'all',        color: '#8B949E' },
-  { label: '🇧🇷 Brasileiros', value: 'brasileiro', color: '#3FB950' },
+  { label: 'Brasileiros', value: 'brasileiro', color: '#3FB950' },
   { label: '🍹 Tropicais',   value: 'tropical',   color: '#F97316' },
   { label: '🥃 Shots',       value: 'shot',       color: '#EF4444' },
   { label: '🧃 Sem Álcool',  value: 'sem-álcool', color: '#388BFD' },

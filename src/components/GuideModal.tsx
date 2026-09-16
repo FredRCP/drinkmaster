@@ -15,7 +15,7 @@ const GLOSSARIO = [
   { term: 'Bitters', foto: 'bitters.jpg', def: 'Aromáticos concentrados usados em pequenas doses para dar complexidade e profundidade ao drinque. Ex: Angostura Bitters.' },
   { term: 'Borrifada (Dash)', foto: 'dash.jpg', def: 'Quantidade mínima de ingrediente — cerca de 0,6ml. Obtida com uma borrifada rápida do frasco. Usada para bitters e aromatizantes.' },
   { term: 'Build (Montar)', foto: 'build.jpg', def: 'Técnica de preparar o drinque diretamente no copo, sem shaker. Ex: Gin Tônica, Cuba Libre.' },
-  { term: 'Coar (Strain)', foto: 'coar.jpg', def: 'Filtrar o drinque do shaker ou mixing glass para o copo usando um strainer, retendo o gelo.' },
+  { term: 'Coar (Strain)', def: 'Filtrar o drinque do shaker ou mixing glass para o copo usando um strainer, retendo o gelo.' },
   { term: 'Digestivo', foto: 'digestivo.jpg', def: 'Bebida servida após as refeições para ajudar na digestão. Ex: Stinger, Alexander, Amaretto.' },
   { term: 'Double (Dose Dupla)', foto: 'dosedupla.jpg', def: 'Dose dupla do destilado principal — normalmente 60ml em vez de 30ml.' },
   { term: 'Dry (Seco)', foto: 'dry.jpg', def: 'Sem açúcar ou com mínimo de adoçante. Um Martini Dry usa mínimo de vermute.' },
@@ -106,48 +106,63 @@ const COPOS = [
 const UTENSILIOS = [
   {
     name: 'Balança de Bar',
+    foto: 'balanca-bar.jpg',
     desc: 'Para receitas que exigem precisão em gramas. Mais precisa que o jigger para ingredientes sólidos como açúcar e sal.',
     svg: `<svg viewBox="0 0 70 80" width="55" height="65"><rect x="25" y="55" width="20" height="18" rx="2" fill="none" stroke="currentColor" stroke-width="1.5"/><line x1="35" y1="55" x2="35" y2="30" stroke="currentColor" stroke-width="1.5"/><line x1="10" y1="30" x2="60" y2="30" stroke="currentColor" stroke-width="1.5"/><path d="M10,30 Q10,10 25,10 L25,30" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M60,30 Q60,10 45,10 L45,30" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>`
   },
   {
     name: 'Colher de Bar',
+    foto: 'colher-bar.jpg',
     desc: 'Colher longa (30cm) com cabo torcido. Usada para mexer drinques suavemente sem aeração, montar camadas e medir ~5ml.',
     svg: `<svg viewBox="0 0 40 120" width="35" height="100"><ellipse cx="15" cy="10" rx="10" ry="7" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M15,17 Q18,60 20,115" fill="none" stroke="currentColor" stroke-width="1.5" stroke-dasharray="4,2"/></svg>`
   },
   {
     name: 'Coqueteleira (Shaker)',
+    foto: 'coqueteleira.jpg',
     desc: 'Utensílio metálico para agitar drinques com gelo. Agite com força por 10-15 segundos até gelar por fora. Existem dois tipos: Boston (2 peças) e Cobbler (3 peças com coador integrado).',
     svg: `<svg viewBox="0 0 60 120" width="50" height="100"><rect x="15" y="2" width="30" height="14" rx="5" fill="none" stroke="currentColor" stroke-width="1.5"/><rect x="10" y="16" width="40" height="10" rx="2" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M10,26 Q5,80 12,108 L48,108 Q55,80 50,26 Z" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>`
   },
   {
     name: 'Espremedor de Cítricos',
+    foto: 'espremedor.jpg',
     desc: 'Suco fresco de limão e laranja faz toda a diferença no sabor. Nunca use suco de caixinha em coquetéis clássicos!',
     svg: `<svg viewBox="0 0 60 90" width="50" height="75"><ellipse cx="30" cy="35" rx="24" ry="12" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M6,35 Q6,65 30,72 Q54,65 54,35" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M16,20 Q30,5 44,20" fill="none" stroke="currentColor" stroke-width="1.5"/><line x1="30" y1="72" x2="30" y2="85" stroke="currentColor" stroke-width="1.5"/></svg>`
   },
   {
     name: 'Jigger (Medidor)',
+    foto: 'jigger-utensilios.jpg',
     desc: 'Medidor duplo em formato de ampulheta. Um lado mede 30ml (1oz) e o outro 60ml (2oz). Essencial para receitas precisas — um bom drinque começa na medida certa!',
     svg: `<svg viewBox="0 0 60 100" width="50" height="85"><path d="M5,2 L55,2 L42,38 L18,38 Z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M18,38 L42,38 L55,97 L5,97 Z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>`
   },
   {
     name: 'Liquidificador',
+    foto: 'liquidificador.jpg',
     desc: 'Para drinques frozen como Frozen Margarita, Daiquiri Frozen e Piña Colada. Use gelo picado para melhor textura e resultado cremoso.',
     svg: `<svg viewBox="0 0 60 110" width="50" height="90"><path d="M15,5 L45,5 L50,70 L10,70 Z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><rect x="8" y="70" width="44" height="14" rx="3" fill="none" stroke="currentColor" stroke-width="1.5"/><rect x="12" y="84" width="36" height="16" rx="3" fill="none" stroke="currentColor" stroke-width="1.5"/><line x1="15" y1="5" x2="45" y2="5" stroke="currentColor" stroke-width="1.5"/></svg>`
   },
   {
     name: 'Mixing Glass (Copo de Mexer)',
+    foto: 'mixing-glass.jpg',
     desc: 'Copo de vidro grosso usado para mexer drinques delicados que não devem ser agitados, como Martini, Manhattan e Negroni. Preserva a textura sedosa.',
     svg: `<svg viewBox="0 0 60 90" width="50" height="75"><path d="M8,5 L52,5 L48,80 L12,80 Z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><line x1="8" y1="5" x2="52" y2="5" stroke="currentColor" stroke-width="1.5"/></svg>`
   },
   {
     name: 'Muddler (Socador)',
+    foto: 'muddler-utensilios.jpg',
     desc: 'Bastão de madeira ou metal para macerar frutas, ervas e açúcar no fundo do copo. Essencial para Caipirinha e Mojito. Pressione suavemente — não esmague demais!',
     svg: `<svg viewBox="0 0 40 120" width="35" height="100"><rect x="8" y="2" width="24" height="22" rx="5" fill="none" stroke="currentColor" stroke-width="1.5"/><rect x="16" y="24" width="8" height="88" rx="3" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>`
   },
   {
     name: 'Strainer (Coador)',
+    foto: 'strainer-utensilios.jpg',
     desc: 'Coador metálico com mola que se encaixa no shaker para coar o gelo ao servir. Mantém o drinque limpo e sem fragmentos de gelo.',
     svg: `<svg viewBox="0 0 80 80" width="65" height="65"><path d="M5,25 Q5,5 35,5 Q65,5 65,25" fill="none" stroke="currentColor" stroke-width="1.5"/><line x1="5" y1="25" x2="65" y2="25" stroke="currentColor" stroke-width="1.5"/><path d="M12,25 Q16,58 35,62 Q54,58 58,25" fill="none" stroke="currentColor" stroke-width="1.5" stroke-dasharray="3,3"/><line x1="65" y1="12" x2="78" y2="8" stroke="currentColor" stroke-width="1.5"/><line x1="65" y1="25" x2="78" y2="28" stroke="currentColor" stroke-width="1.5"/></svg>`
+  },
+  {
+    name: 'Balde de Gelo',
+    foto: 'balde-gelo.jpg',
+    desc: 'Mantém o gelo por mais tempo durante o preparo e o serviço. Tenha sempre mais gelo do que imagina ser necessário — drinks bem gelados fazem toda a diferença!',
+    svg: `<svg viewBox="0 0 70 80" width="55" height="65"><path d="M10,20 L60,20 L52,72 L18,72 Z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M5,20 Q35,5 65,20" fill="none" stroke="currentColor" stroke-width="1.5"/><line x1="20" y1="10" x2="15" y2="20" stroke="currentColor" stroke-width="1.5"/><line x1="50" y1="10" x2="55" y2="20" stroke="currentColor" stroke-width="1.5"/></svg>`,
   },
 ].sort((a, b) => a.name.localeCompare(b.name, 'pt-BR'))
 
@@ -329,11 +344,28 @@ export function GuideModal({ onClose }: GuideModalProps) {
               display: 'flex', gap: '16px', alignItems: 'center',
             }}>
               <div style={{
-                width: '64px', minWidth: '64px', height: '80px',
+                width: '72px', minWidth: '72px', height: '72px',
+                borderRadius: '10px', overflow: 'hidden',
+                backgroundColor: '#fff',
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
-              }}
-                dangerouslySetInnerHTML={{ __html: u.svg.replace(/currentColor/g, 'var(--gold)') }}
-              />
+                flexShrink: 0,
+              }}>
+                {(u as any).foto ? (
+                  <img
+                    src={`/bar/${(u as any).foto}`}
+                    alt={u.name}
+                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                    onError={e => {
+                      const el = e.currentTarget as HTMLImageElement
+                      el.style.display = 'none'
+                      const parent = el.parentElement
+                      if (parent) parent.innerHTML = u.svg.replace(/currentColor/g, 'var(--gold)')
+                    }}
+                  />
+                ) : (
+                  <div dangerouslySetInnerHTML={{ __html: u.svg.replace(/currentColor/g, 'var(--gold)') }} />
+                )}
+              </div>
               <div>
                 <p style={{ color: 'var(--text-primary)', fontSize: '0.88rem', fontWeight: 700, marginBottom: '5px' }}>
                   {u.name}

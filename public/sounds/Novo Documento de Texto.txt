@@ -1,0 +1,77 @@
+🎵 DRINKMASTER — LISTA DE SONS
+================================
+Pasta destino: public/sounds/
+Formato: MP3 (melhor compatibilidade)
+Duração ideal: curtos (0.5s a 2s)
+================================
+
+🍸 SONS PRINCIPAIS
+================================
+
+01. ting.mp3
+    Quando: Abre modal de um drink / clica "Ver Drinks"
+    Som: Tilintar de taça de cristal — "ting!" suave e elegante
+    Buscar: "crystal glass ting sound effect"
+    Duração ideal: 0.5s - 1s
+
+02. shaker.mp3
+    Quando: Clica "Meu Bar" na home
+    Som: Coqueteleira sendo agitada com gelo — "tchaka tchaka"
+    Buscar: "cocktail shaker sound effect"
+    Duração ideal: 1s - 1.5s
+
+03. click.mp3
+    Quando: Navega pelo bottom bar / seleciona ingrediente
+    Som: Click suave de botão / toque leve
+    Buscar: "soft click button sound effect"
+    Duração ideal: 0.1s - 0.3s
+
+04. pop.mp3
+    Quando: Adiciona drink aos favoritos ❤️
+    Som: Pop suave / bolha estourando
+    Buscar: "pop sound effect soft"
+    Duração ideal: 0.3s - 0.5s
+
+05. pour.mp3
+    Quando: Inicia o Modo Barman
+    Som: Líquido sendo despejado num copo
+    Buscar: "liquid pour glass sound effect"
+    Duração ideal: 1s - 2s
+
+06. ice.mp3
+    Quando: Seleciona um ingrediente no Meu Bar
+    Som: Gelo caindo num copo / cubos de gelo
+    Buscar: "ice cubes glass sound effect"
+    Duração ideal: 0.5s - 1s
+
+07. success.mp3
+    Quando: Drink com 100% match (pode fazer!)
+    Som: Acorde suave / sino de sucesso
+    Buscar: "success chime soft sound effect"
+    Duração ideal: 0.5s - 1s
+
+08. cheers.mp3  ← ESPECIAL
+    Quando: Compartilha um drink com amigo
+    Som: Brindar taças — "tchin tchin!"
+    Buscar: "glasses cheers clink sound effect"
+    Duração ideal: 1s - 1.5s
+
+================================
+📊 RESUMO
+================================
+Total: 8 arquivos MP3
+Pasta: public/sounds/
+Volume: moderado (não muito alto)
+Qualidade: 128kbps é suficiente
+
+================================
+💡 ONDE BAIXAR GRATUITO
+================================
+- freesound.org (gratuito, precisa criar conta)
+- mixkit.co/free-sound-effects/ (gratuito, sem conta)
+- pixabay.com/sound-effects/ (gratuito)
+- zapsplat.com (gratuito com conta)
+
+Busque pelos termos em inglês
+para mais resultados!
+================================

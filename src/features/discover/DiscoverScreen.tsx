@@ -22,7 +22,7 @@ const RESULT_PILLS = [
   { label: 'Todos',          value: 'all' },
   { label: '✅ Pode fazer',   value: 'can_make' },
   { label: '⚡ Falta 1',      value: 'one_missing' },
-  { label: '🇧🇷 Brasileiros', value: 'brasileiro' },
+  { label: 'Brasileiros', value: 'brasileiro' },
   { label: '🍹 Tropicais',    value: 'tropical' },
   { label: '🧃 Sem Álcool',   value: 'sem-álcool' },
   { label: '🍦 Cremosos',     value: 'cremoso' },

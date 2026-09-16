@@ -41,7 +41,7 @@ const GLOSSARIO = [
   { term: 'Teor Alcoólico', foto: 'teor.jpg', def: 'Percentual de álcool puro na bebida. Ex: Vodka 40% significa que 40% do volume é álcool puro.' },
   { term: 'Tiki', foto: 'tiki.jpg', def: 'Estilo de coquetelaria tropical inspirado na cultura polinésia. Usa rum, frutas exóticas e apresentação colorida. Ex: Mai Tai, Zombie.' },
   { term: 'Top (Completar)', foto: 'top.jpg', def: 'Finalizar o copo com um mixer — água com gás, tônica ou refrigerante — após adicionar os demais ingredientes.' },
-  { term: 'Twist', def: 'Casca de cítrico torcida sobre o drinque para liberar os óleos aromáticos da casca. Decoração e aroma ao mesmo tempo.' },
+  { term: 'Twist', foto: 'twist.jpg', def: 'Casca de cítrico torcida sobre o drinque para liberar os óleos aromáticos da casca. Decoração e aroma ao mesmo tempo.' },
   { term: 'Vermute', foto: 'vermute.jpg', def: 'Vinho aromatizado com ervas e especiarias. Existe doce (tinto) e seco (branco). Ingrediente essencial no Martini e Negroni.' },
   { term: 'Virgin', foto: 'virgin.jpg', def: 'Versão sem álcool de um drinque clássico. Ex: Virgin Mojito, Virgin Mary.' },
 ].sort((a, b) => a.term.localeCompare(b.term, 'pt-BR'))

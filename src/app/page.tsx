@@ -12,7 +12,7 @@ import { AgeGate } from '@/components/AgeGate'
 import { GuideModal } from '@/components/GuideModal'
 import { DrinkModal } from '@/components/DrinkModal'
 
-type Tab = 'home' | 'discover' | 'catalog' | 'favorites'
+type Tab = 'home' | 'discover' | 'catalog' | 'favorites' | 'guide'
 const SPLASH_KEY  = 'drinkmaster_splash_shown'
 const AGE_KEY     = 'drinkmaster_age_confirmed'
 const SOUND_KEY   = 'drinkmaster_sound_enabled'
@@ -150,9 +150,10 @@ export default function Home() {
   }
 
   const tabs = [
-    { key: 'home'      as Tab, icon: HomeIcon, label: 'Início'    },
-    { key: 'catalog'   as Tab, icon: BookOpen,  label: 'Catálogo'  },
-    { key: 'favorites' as Tab, icon: Heart,     label: 'Favoritos', badge: favCount },
+    { key: 'home'      as Tab, icon: HomeIcon,   label: 'Início'    },
+    { key: 'catalog'   as Tab, icon: BookOpen,   label: 'Catálogo'  },
+    { key: 'favorites' as Tab, icon: Heart,      label: 'Favoritos', badge: favCount },
+    { key: 'guide'     as Tab, icon: BookMarked, label: 'Guia'      },
   ]
 
   if (!splashChecked || !ageChecked) return null
@@ -292,7 +293,7 @@ export default function Home() {
               </div>
 
               <button onClick={() => { playSound('ting'); setTab('catalog') }} style={{
-                width: '100%', padding: '18px 20px',
+                width: '100%', minHeight: '80px', padding: '18px 20px',
                 background: 'linear-gradient(135deg, var(--gold), #D97706)',
                 border: 'none', borderRadius: '16px', cursor: 'pointer', marginBottom: '12px',
                 display: 'flex', alignItems: 'center', gap: '14px',
@@ -307,31 +308,42 @@ export default function Home() {
               </button>
 
               <button onClick={() => { playSound('shaker'); setTab('discover') }} style={{
-                width: '100%', padding: '18px 20px',
-                backgroundColor: 'var(--bg-card)', border: '1px solid var(--border-default)',
-                borderRadius: '16px', cursor: 'pointer',
+                width: '100%', minHeight: '80px', padding: '18px 20px',
+                backgroundColor: 'var(--bg-card)',
+                border: '2px solid var(--gold-border)',
+                borderRadius: '16px', cursor: 'pointer', marginBottom: '12px',
                 display: 'flex', alignItems: 'center', gap: '14px',
+                position: 'relative', overflow: 'hidden',
               }}>
+                <div style={{
+                  position: 'absolute', top: '10px', right: '12px',
+                  backgroundColor: 'var(--gold)', color: '#121214',
+                  fontSize: '0.55rem', fontWeight: 900,
+                  padding: '2px 7px', borderRadius: '9999px',
+                  letterSpacing: '0.05em',
+                }}>✨ EXPERIMENTE</div>
                 <div style={{ width: '44px', height: '44px', borderRadius: '12px', backgroundColor: 'var(--gold-muted)', border: '1px solid var(--gold-border)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.3rem', flexShrink: 0 }}>🧂</div>
                 <div style={{ textAlign: 'left' }}>
                   <p style={{ color: 'var(--text-primary)', fontSize: '1rem', fontWeight: 800, margin: 0 }}>Meu Bar</p>
-                  <p style={{ color: 'var(--text-tertiary)', fontSize: '0.78rem', margin: '2px 0 0' }}>Descubra drinks com o que você tem</p>
+                  <p style={{ color: 'var(--text-secondary)', fontSize: '0.78rem', margin: '2px 0 0' }}>Selecione ingredientes e descubra o que pode fazer! 🍸</p>
+                </div>
+              </button>
+
+              {/* Guia do Bar — mesmo tamanho dos outros botões */}
+              <button onClick={() => { playSound('ting'); setShowGuide(true) }} style={{
+                width: '100%', minHeight: '80px', padding: '18px 20px',
+                backgroundColor: 'var(--bg-card)',
+                border: '1px solid var(--border-default)',
+                borderRadius: '16px', cursor: 'pointer',
+                display: 'flex', alignItems: 'center', gap: '14px',
+              }}>
+                <div style={{ width: '44px', height: '44px', borderRadius: '12px', backgroundColor: 'rgba(56,139,253,0.1)', border: '1px solid rgba(56,139,253,0.25)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.3rem', flexShrink: 0 }}>📚</div>
+                <div style={{ textAlign: 'left' }}>
+                  <p style={{ color: 'var(--text-primary)', fontSize: '1rem', fontWeight: 800, margin: 0 }}>Guia do Bar</p>
+                  <p style={{ color: 'var(--text-tertiary)', fontSize: '0.78rem', margin: '2px 0 0' }}>Copos, utensílios e glossário para iniciantes</p>
                 </div>
                 <div style={{ marginLeft: 'auto', color: 'var(--text-tertiary)', fontSize: '1.2rem' }}>→</div>
               </button>
-
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '10px', marginTop: '32px', width: '100%' }}>
-                {[
-                  { label: 'Drinks', value: drinks.length + '+' },
-                  { label: 'Ingredientes', value: '136' },
-                  { label: 'Favoritos', value: favCount },
-                ].map(s => (
-                  <div key={s.label} style={{ backgroundColor: 'var(--bg-card)', border: '1px solid var(--border-subtle)', borderRadius: '12px', padding: '12px', textAlign: 'center' }}>
-                    <p style={{ color: 'var(--gold)', fontSize: '1.1rem', fontWeight: 800, margin: 0 }}>{s.value}</p>
-                    <p style={{ color: 'var(--text-tertiary)', fontSize: '0.68rem', margin: '3px 0 0' }}>{s.label}</p>
-                  </div>
-                ))}
-              </div>
             </div>
           )}
 
@@ -354,12 +366,10 @@ export default function Home() {
             const isActive = tab === t.key
             const Icon = t.icon
             return (
-              <button key={t.key} onClick={() => { playSound('click'); setTab(t.key) }} style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '10px 0', gap: '3px', position: 'relative', border: 'none', background: 'none', cursor: 'pointer', opacity: isActive ? 1 : 0.45, transition: 'opacity 0.15s ease' }}>
+              <button key={t.key} onClick={() => { playSound('click'); if (t.key === 'guide') { setShowGuide(true) } else { setTab(t.key) } }} style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '10px 0', gap: '3px', position: 'relative', border: 'none', background: 'none', cursor: 'pointer', opacity: isActive ? 1 : 0.45, transition: 'opacity 0.15s ease' }}>
                 <Icon size={20} strokeWidth={isActive ? 2.5 : 1.8} color={isActive ? 'var(--gold)' : 'var(--text-secondary)'} fill={isActive && t.key === 'favorites' ? 'var(--gold)' : 'none'} />
                 <span style={{ fontSize: '0.65rem', fontWeight: isActive ? 700 : 400, color: isActive ? 'var(--gold)' : 'var(--text-secondary)' }}>{t.label}</span>
-                {t.badge && t.badge > 0 && (
-                  <span style={{ position: 'absolute', top: '6px', right: 'calc(50% - 20px)', backgroundColor: 'var(--wine)', color: '#F4F4F5', fontSize: '0.5rem', fontWeight: 800, width: '14px', height: '14px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>{t.badge > 9 ? '9+' : t.badge}</span>
-                )}
+
                 {isActive && <div style={{ position: 'absolute', bottom: 0, left: '50%', transform: 'translateX(-50%)', width: '20px', height: '2px', backgroundColor: 'var(--gold)', borderRadius: '9999px' }} />}
               </button>
             )

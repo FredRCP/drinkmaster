@@ -15,7 +15,7 @@ const GLOSSARIO = [
   { term: 'Bitters', foto: 'bitters.jpg', def: 'Aromáticos concentrados usados em pequenas doses para dar complexidade e profundidade ao drinque. Ex: Angostura Bitters.' },
   { term: 'Borrifada (Dash)', foto: 'dash.jpg', def: 'Quantidade mínima de ingrediente — cerca de 0,6ml. Obtida com uma borrifada rápida do frasco. Usada para bitters e aromatizantes.' },
   { term: 'Build (Montar)', foto: 'build.jpg', def: 'Técnica de preparar o drinque diretamente no copo, sem shaker. Ex: Gin Tônica, Cuba Libre.' },
-  { term: 'Coar (Strain)', def: 'Filtrar o drinque do shaker ou mixing glass para o copo usando um strainer, retendo o gelo.' },
+  { term: 'Coar (Strain)', foto: 'coar.jpg', def: 'Filtrar o drinque do shaker ou mixing glass para o copo usando um strainer, retendo o gelo.' },
   { term: 'Digestivo', foto: 'digestivo.jpg', def: 'Bebida servida após as refeições para ajudar na digestão. Ex: Stinger, Alexander, Amaretto.' },
   { term: 'Double (Dose Dupla)', foto: 'dosedupla.jpg', def: 'Dose dupla do destilado principal — normalmente 60ml em vez de 30ml.' },
   { term: 'Dry (Seco)', foto: 'dry.jpg', def: 'Sem açúcar ou com mínimo de adoçante. Um Martini Dry usa mínimo de vermute.' },

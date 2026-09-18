@@ -37,6 +37,7 @@ export default function PrivacidadePage() {
           <Section title="1. Introdução">A sua privacidade é importante para nós. Esta Política descreve como o <strong>DrinkMaster</strong> coleta, utiliza e protege suas informações, em conformidade com a LGPD (Lei nº 13.709/2018).</Section>
 
           <Section title="2. Controlador dos Dados">
+            <p style={{margin:0}}><strong>Nome:</strong> RCP Creative</p>
             <p style={{margin:0}}><strong>Marca:</strong> RCP Creative</p>
             <p style={{margin:0}}><strong>Email:</strong> drfredrcp@gmail.com</p>
             <p style={{margin:0}}><strong>Localização:</strong> Uberaba, MG, Brasil</p>

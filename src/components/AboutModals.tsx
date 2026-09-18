@@ -80,9 +80,7 @@ export function AboutModal({ onClose, onOpenGuide }: AboutModalProps) {
               Desenvolvido por
             </p>
             <p style={{ color: 'var(--text-primary)', fontSize: '0.95rem', fontWeight: 800 }}>RCP Creative</p>
-            <p style={{ color: 'var(--text-tertiary)', fontSize: '0.72rem', marginTop: '2px' }}>
-              Frederico Rodrigues · Uberaba, MG
-            </p>
+            
           </div>
           <span style={{ fontSize: '1.6rem' }}>🍸</span>
         </div>

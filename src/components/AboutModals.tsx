@@ -11,14 +11,17 @@ export function AboutModal({ onClose, onOpenGuide }: AboutModalProps) {
       position: 'fixed', inset: 0, zIndex: 999,
       backgroundColor: 'rgba(0,0,0,0.8)',
       backdropFilter: 'blur(6px)',
-      display: 'flex', alignItems: 'flex-end',
+      display: 'flex', alignItems: 'center', justifyContent: 'center',
+      padding: '20px 16px',
+      overflowY: 'auto',
     }}>
       <div onClick={e => e.stopPropagation()} style={{
-        width: '100%', maxWidth: '560px', margin: '0 auto',
+        width: '100%', maxWidth: '480px',
         backgroundColor: 'var(--bg-card)',
-        borderRadius: '20px 20px 0 0',
+        borderRadius: '20px',
         border: '1px solid var(--border-subtle)',
-        padding: '28px 24px 48px',
+        padding: '28px 24px 32px',
+        margin: 'auto',
       }}>
         <div style={{ width: '36px', height: '4px', backgroundColor: 'var(--border-default)', borderRadius: '9999px', margin: '0 auto 24px' }} />
 
@@ -80,7 +83,9 @@ export function AboutModal({ onClose, onOpenGuide }: AboutModalProps) {
               Desenvolvido por
             </p>
             <p style={{ color: 'var(--text-primary)', fontSize: '0.95rem', fontWeight: 800 }}>RCP Creative</p>
-            
+            <p style={{ color: 'var(--text-tertiary)', fontSize: '0.72rem', marginTop: '2px' }}>
+              Frederico Rodrigues · Uberaba, MG
+            </p>
           </div>
           <span style={{ fontSize: '1.6rem' }}>🍸</span>
         </div>

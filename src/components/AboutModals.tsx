@@ -81,14 +81,28 @@ export function AboutModal({ onClose, onOpenGuide }: AboutModalProps) {
             </p>
             <p style={{ color: 'var(--text-primary)', fontSize: '0.95rem', fontWeight: 800 }}>RCP Creative</p>
             <p style={{ color: 'var(--text-tertiary)', fontSize: '0.72rem', marginTop: '2px' }}>
-              Fred RCP · Uberaba, MG
+              Frederico Rodrigues · Uberaba, MG
             </p>
           </div>
           <span style={{ fontSize: '1.6rem' }}>🍸</span>
         </div>
 
+        {/* Links legais */}
+        <div style={{ display: 'flex', justifyContent: 'center', gap: '16px', marginBottom: '12px', flexWrap: 'wrap' }}>
+          {[
+            { label: 'Termos de Uso', href: '/termos' },
+            { label: 'Privacidade', href: '/privacidade' },
+            { label: 'Saúde', href: '/saude' },
+          ].map(link => (
+            <a key={link.href} href={link.href} target="_blank" rel="noopener noreferrer" style={{
+              color: 'var(--text-tertiary)', fontSize: '0.72rem',
+              textDecoration: 'underline', textDecorationColor: 'var(--border-default)',
+            }}>{link.label}</a>
+          ))}
+        </div>
+
         <p style={{ color: 'var(--text-tertiary)', fontSize: '0.65rem', textAlign: 'center', opacity: 0.6, marginBottom: '16px' }}>
-          DrinkMaster v1.0 · {new Date().getFullYear()} · Beba com responsabilidade 🔞
+          DrinkMaster v1.0 · {new Date().getFullYear()} · 🔞 Beba com responsabilidade
         </p>
 
         <button onClick={onClose} style={{

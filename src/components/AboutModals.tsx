@@ -84,7 +84,7 @@ export function AboutModal({ onClose, onOpenGuide }: AboutModalProps) {
             </p>
             <p style={{ color: 'var(--text-primary)', fontSize: '0.95rem', fontWeight: 800 }}>RCP Creative</p>
             <p style={{ color: 'var(--text-tertiary)', fontSize: '0.72rem', marginTop: '2px' }}>
-              Frederico Rodrigues · Uberaba, MG
+              Uberaba, MG
             </p>
           </div>
           <span style={{ fontSize: '1.6rem' }}>🍸</span>
@@ -98,13 +98,13 @@ export function AboutModal({ onClose, onOpenGuide }: AboutModalProps) {
             { label: 'Saúde', href: '/saude' },
           ].map(link => (
             <a key={link.href} href={link.href} target="_blank" rel="noopener noreferrer" style={{
-              color: 'var(--text-tertiary)', fontSize: '0.72rem',
+              color: 'var(--text-tertiary)', fontSize: '0.8rem',
               textDecoration: 'underline', textDecorationColor: 'var(--border-default)',
             }}>{link.label}</a>
           ))}
         </div>
 
-        <p style={{ color: 'var(--text-tertiary)', fontSize: '0.65rem', textAlign: 'center', opacity: 0.6, marginBottom: '16px' }}>
+        <p style={{ color: 'var(--text-tertiary)', fontSize: '0.8rem', textAlign: 'center', opacity: 0.6, marginBottom: '16px' }}>
           DrinkMaster v1.0 · {new Date().getFullYear()} · 🔞 Beba com responsabilidade
         </p>
 

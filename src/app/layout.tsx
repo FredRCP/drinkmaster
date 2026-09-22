@@ -7,15 +7,6 @@ export const metadata: Metadata = {
   title: 'DrinkMaster',
   description: 'Seu bar inteligente — 193 drinks com receitas detalhadas',
   manifest: '/manifest.json',
-  icons: {
-    icon: [
-      { url: '/favicon.ico?v=3', sizes: '32x32', type: 'image/x-icon' },
-      { url: '/favicon-32.png?v=3', sizes: '32x32', type: 'image/png' },
-    ],
-    apple: [
-      { url: '/apple-touch-icon.png?v=3', sizes: '180x180', type: 'image/png' },
-    ],
-  },
 }
 
 export const viewport: Viewport = {
@@ -29,6 +20,12 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="pt-BR">
+      <head>
+        <link rel="icon" href="/favicon.ico?v=10" sizes="32x32" />
+        <link rel="icon" href="/favicon-32.png?v=10" type="image/png" sizes="32x32" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=10" />
+        <link rel="shortcut icon" href="/favicon.ico?v=10" />
+      </head>
       <body>
         {children}
         <Analytics />

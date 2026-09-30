@@ -122,13 +122,13 @@ export const TECHNIQUE_TIP: Record<string, string> = {
 const DRINK_IMAGE_FILES: Record<string, string> = {
   // Brasileiros
   'Caipirinha':                 'caipirinha.jpg',
-  'Caipirosca':                 'caipirosca.jpg',
+  'Caipirosca':                 'caipiroska.jpg',
   'Caipirinha de Morango':      'caipirinha-morango.jpg',
   'Caipirinha de Maracujá':     'caipirinha-maracuja.jpg',
   'Caipirinha de Melancia':     'caipirinha-melancia.jpg',
   'Caipirinha de Abacaxi':      'caipirinha-abacaxi.jpg',
   'Caipirinha de Uva':          'caipirinha-uva.jpg',
-  'Caipivodka de Manga':        'caipivodka-manga.jpg',
+  'Caipivodka de Manga':        'caipiroska-manga.jpg',
   'Batida de Coco':             'batida-coco.jpg',
   'Batida de Maracujá':         'batida-maracuja.jpg',
   'Batida de Banana':           'batida-banana.jpg',
@@ -326,15 +326,13 @@ const DRINK_IMAGE_FILES: Record<string, string> = {
   'Crimson':                    'crimson.jpg',
   'Loch Lomond':                'loch-lomond.jpg',
   // Outros
-  // PDF
+  // PDF Ruben Rodrigues 2008
   'Aftershock':                 'aftershock.jpg',
-  "Alex's Bunny":               'alexs-bunny.jpg',
   'Amoureux':                   'amoureux.jpg',
   'Barbotage':                  'barbotage.jpg',
   'Bishop':                     'bishop.jpg',
   'Blanc Porto':                'blanc-porto.jpg',
   'Blitz':                      'blitz.jpg',
-  'Brandy ABM':                 'brandy-abm.jpg',
   'Caminemo':                   'caminemo.jpg',
   'CAT':                        'cat-cocktail.jpg',
   'Cassandre':                  'cassandre.jpg',
@@ -382,6 +380,12 @@ const DRINK_IMAGE_FILES: Record<string, string> = {
   'Vanessa Envoutée':           'vanessa-envoutee.jpg',
   'Voyageur':                   'voyageur.jpg',
   '333':                        '333.jpg',
+  // Clássicos verificados
+  "Bee's Knees":                'bees-knees.jpg',
+  'El Diablo':                  'el-diablo.jpg',
+  'Corpse Reviver #2':          'corpse-reviver-2.jpg',
+  'Vieux Carré':                'vieux-carre.jpg',
+  'Bunny Mother':               'bunny-mother.jpg',
 }
 
 function getFallbackByName(drink: Drink): string {

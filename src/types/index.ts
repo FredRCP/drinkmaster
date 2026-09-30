@@ -122,13 +122,14 @@ export const TECHNIQUE_TIP: Record<string, string> = {
 const DRINK_IMAGE_FILES: Record<string, string> = {
   // Brasileiros
   'Caipirinha':                 'caipirinha.jpg',
-  'Caipirosca':                 'caipiroska.jpg',
+  'Caipiroska':                 'caipiroska.jpg',
+  'Caipiroska de Manga':        'caipiroska-manga.jpg',
   'Caipirinha de Morango':      'caipirinha-morango.jpg',
   'Caipirinha de Maracujá':     'caipirinha-maracuja.jpg',
   'Caipirinha de Melancia':     'caipirinha-melancia.jpg',
   'Caipirinha de Abacaxi':      'caipirinha-abacaxi.jpg',
   'Caipirinha de Uva':          'caipirinha-uva.jpg',
-  'Caipivodka de Manga':        'caipiroska-manga.jpg',
+  'Caipivodka de Manga':        'caipivodka-manga.jpg',
   'Batida de Coco':             'batida-coco.jpg',
   'Batida de Maracujá':         'batida-maracuja.jpg',
   'Batida de Banana':           'batida-banana.jpg',
@@ -390,7 +391,9 @@ const DRINK_IMAGE_FILES: Record<string, string> = {
 
 function getFallbackByName(drink: Drink): string {
   const n = drink.name.toLowerCase()
-  if (n.includes('caipir') || n.includes('batida')) return '/drinks/caipirinha.jpg'
+  if (n.includes('caipirinha')) return '/drinks/caipirinha.jpg'
+  if (n.includes('caipiroska')) return '/drinks/caipiroska.jpg'
+  if (n.includes('batida')) return '/drinks/caipirinha.jpg'
   if (n.includes('mojito')) return '/drinks/mojito.jpg'
   if (n.includes('margarita')) return '/drinks/margarita.jpg'
   if (n.includes('mule')) return '/drinks/moscow-mule.jpg'

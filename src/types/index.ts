@@ -353,12 +353,9 @@ const DRINK_IMAGE_FILES: Record<string, string> = {
   'Rattlesnake':                'rattlesnake.jpg',
   'Riviera Planteur':           'riviera-planteur.jpg',
   'Sacre Sunrise':              'sacre-sunrise.jpg',
-  'San Juan':                   'san-juan.jpg',
   'Sevilla':                    'sevilla.jpg',
   'Slush Puppy':                'slush-puppy.jpg',
-  'Supreme Dream':              'supreme-dream.jpg',
   'Tropical Temptation':        'tropical-temptation.jpg',
-  'Vanessa Envoutée':           'vanessa-envoutee.jpg',
   'Voyageur':                   'voyageur.jpg',
   '333':                        '333.jpg',
   // Clássicos verificados

@@ -20,7 +20,7 @@ const SOUND_KEY   = 'drinkmaster_sound_enabled'
 // Sons — arquivos reais + fallback sintético
 const SOUNDS: Record<string, string> = {
   ting:    '/sounds/ting.mp3',
-  click:   '/sounds/click.wav',
+  click:   '/sounds/click.mp3',
   // Adicione os demais quando tiver os arquivos:
   // shaker:  '/sounds/shaker.mp3',
   // pop:     '/sounds/pop.mp3',

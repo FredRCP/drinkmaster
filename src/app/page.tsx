@@ -17,37 +17,59 @@ const SPLASH_KEY  = 'drinkmaster_splash_shown'
 const AGE_KEY     = 'drinkmaster_age_confirmed'
 const SOUND_KEY   = 'drinkmaster_sound_enabled'
 
-// Sons via Web Audio API
+// Sons — arquivos reais + fallback sintético
+const SOUNDS: Record<string, string> = {
+  ting:    '/sounds/ting.mp3',
+  click:   '/sounds/click.wav',
+  // Adicione os demais quando tiver os arquivos:
+  // shaker:  '/sounds/shaker.mp3',
+  // pop:     '/sounds/pop.mp3',
+  // pour:    '/sounds/pour.mp3',
+  // ice:     '/sounds/ice.mp3',
+  // success: '/sounds/success.mp3',
+  // cheers:  '/sounds/cheers.mp3',
+}
+
 function createAudioContext() {
   if (typeof window === 'undefined') return null
   return new (window.AudioContext || (window as any).webkitAudioContext)()
 }
 
+function playAudioFile(name: string) {
+  try {
+    const src = SOUNDS[name]
+    if (!src) return false
+    const audio = new Audio(src)
+    audio.volume = 0.6
+    audio.play().catch(() => {})
+    return true
+  } catch {
+    return false
+  }
+}
+
+// Fallbacks sintéticos (usados quando não há arquivo MP3/WAV)
 function playTing(ctx: AudioContext) {
   const osc = ctx.createOscillator()
   const gain = ctx.createGain()
-  osc.connect(gain)
-  gain.connect(ctx.destination)
+  osc.connect(gain); gain.connect(ctx.destination)
   osc.type = 'sine'
   osc.frequency.setValueAtTime(880, ctx.currentTime)
   osc.frequency.exponentialRampToValueAtTime(440, ctx.currentTime + 0.3)
   gain.gain.setValueAtTime(0.3, ctx.currentTime)
   gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.6)
-  osc.start(ctx.currentTime)
-  osc.stop(ctx.currentTime + 0.6)
+  osc.start(ctx.currentTime); osc.stop(ctx.currentTime + 0.6)
 }
 
 function playClick(ctx: AudioContext) {
   const osc = ctx.createOscillator()
   const gain = ctx.createGain()
-  osc.connect(gain)
-  gain.connect(ctx.destination)
+  osc.connect(gain); gain.connect(ctx.destination)
   osc.type = 'sine'
   osc.frequency.setValueAtTime(600, ctx.currentTime)
   gain.gain.setValueAtTime(0.15, ctx.currentTime)
   gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.08)
-  osc.start(ctx.currentTime)
-  osc.stop(ctx.currentTime + 0.08)
+  osc.start(ctx.currentTime); osc.stop(ctx.currentTime + 0.08)
 }
 
 function playShaker(ctx: AudioContext) {
@@ -59,9 +81,7 @@ function playShaker(ctx: AudioContext) {
   }
   const source = ctx.createBufferSource()
   const gain = ctx.createGain()
-  source.buffer = buffer
-  source.connect(gain)
-  gain.connect(ctx.destination)
+  source.buffer = buffer; source.connect(gain); gain.connect(ctx.destination)
   gain.gain.setValueAtTime(0.3, ctx.currentTime)
   source.start(ctx.currentTime)
 }
@@ -125,6 +145,9 @@ export default function Home() {
 
   const playSound = (type: 'ting' | 'click' | 'shaker') => {
     if (!soundEnabled) return
+    // Tenta arquivo real primeiro
+    if (playAudioFile(type)) return
+    // Fallback sintético
     const ctx = getAudioCtx()
     if (!ctx) return
     if (ctx.state === 'suspended') ctx.resume()
